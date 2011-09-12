@@ -1,4 +1,6 @@
 set nocompatible               " be iMproved
+
+""" Vundle setup start
 filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
@@ -17,6 +19,7 @@ Bundle 'ZenCoding.vim'
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
+Bundle 'snipMate'
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
 " ...
@@ -32,21 +35,26 @@ filetype plugin indent on
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
+""" Vundle end
 
-
+""" My settings
 syntax on
+colorscheme delek
 set hidden
+set hlsearch
 set ignorecase
+set smartcase
+" Margin line
 set cc=80
+" Auto indenting
 set shiftwidth=2
 set tabstop=2
 set expandtab
 set autoindent
-set hlsearch
+" Remove backup files
 set nobackup
 set noswapfile
 set nowritebackup
-colorscheme delek
 
 " Key mappings
 let g:user_zen_expandabbr_key = '<c-e>'
