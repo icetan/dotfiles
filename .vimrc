@@ -20,6 +20,7 @@ Bundle 'ZenCoding.vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'snipMate'
+Bundle 'Markdown'
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
 " ...
@@ -46,6 +47,9 @@ set ignorecase
 set smartcase
 " Margin line
 set cc=80
+" Word wrap
+set wrap
+set linebreak
 " Auto indenting
 set shiftwidth=2
 set tabstop=2
