@@ -13,15 +13,14 @@ call vundle#rc()
 " required! 
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
+" vim-scripts repos
 Bundle 'vim-coffee-script'
 Bundle 'ZenCoding.vim'
-" vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'snipMate'
 Bundle 'Markdown'
-" non github repos
+" non github repos ex.
 "Bundle 'git://git.wincent.com/command-t.git'
 " ...
 
@@ -45,8 +44,6 @@ set hidden
 set hlsearch
 set ignorecase
 set smartcase
-" Margin line
-set cc=80
 " Word wrap
 set wrap
 set linebreak
@@ -59,6 +56,15 @@ set autoindent
 set nobackup
 set noswapfile
 set nowritebackup
+
+" v7.3 specific stuff
+if v:version >= 703
+  " Margin line
+  set cc=80
+  " Persistent undo
+  set undofile
+  set undodir=~/.vimundo
+endif
 
 " Key mappings
 let g:user_zen_expandabbr_key = '<c-e>'
