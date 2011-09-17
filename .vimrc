@@ -77,3 +77,8 @@ map <C-T>o :FufBookmarkDir<CR>
 map <C-T>a :FufBookmarkDirAdd<CR>
 map <F3> :let @/ = ""<CR>
 map <C-W>d :bd<CR>
+
+" Hide toolbar in MacVim
+if has("gui_running")
+  set guioptions=egmrt
+endif
