@@ -74,7 +74,8 @@ map <C-T>t :FufFile **/<CR>
 map <C-T>d :FufDir<CR>
 map <C-T>b :FufBuffer<CR> 
 map <C-T>o :FufBookmarkDir<CR> 
-map <C-T>a :FufBookmarkDirAdd<CR>
+map <C-T>a :FufBookmarkDirAdd<CR
+map <C-T>r :FufRenewCache<CR>
 map <F3> :let @/ = ""<CR>
 map <C-W>d :bd<CR>
 
