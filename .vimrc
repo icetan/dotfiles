@@ -67,6 +67,7 @@ if v:version >= 703
 endif
 
 " Key mappings
+set pastetoggle=<F4>
 let g:user_zen_expandabbr_key = '<c-e>'
 let g:fuf_buffer_keyDelete = '<c-w>'
 let g:fuf_bookmarkdir_keyDelete = '<c-w>'
