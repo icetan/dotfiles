@@ -40,7 +40,7 @@ filetype plugin indent on
 """ My settings
 syntax on
 colorscheme delek
-set hidden
+set nohidden
 set hlsearch
 set ignorecase
 set smartcase
