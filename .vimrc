@@ -20,6 +20,8 @@ Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'snipMate'
 Bundle 'Markdown'
+" github repos
+Bundle 'scrooloose/syntastic'
 " non github repos ex.
 "Bundle 'git://git.wincent.com/command-t.git'
 " ...
@@ -56,6 +58,8 @@ set autoindent
 set nobackup
 set noswapfile
 set nowritebackup
+" Remove UTF-8 BOM
+set nobomb
 
 " v7.3 specific stuff
 if v:version >= 703
