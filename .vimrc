@@ -41,8 +41,8 @@ filetype plugin indent on
 
 """ My settings
 syntax on
-colorscheme delek
-set nohidden
+colorscheme desert
+set hidden
 set hlsearch
 set ignorecase
 set smartcase
@@ -67,7 +67,7 @@ if v:version >= 703
   set cc=80
   " Persistent undo
   set undofile
-  set undodir=~/.vimundo
+  set undodir=~/.vimundo " Need to create this directory for undofile to work
 endif
 
 " Key mappings
