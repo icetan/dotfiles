@@ -72,7 +72,11 @@ endif
 
 " Key mappings
 set pastetoggle=<F4>
+map <F3> :let @/ = ""<CR>
+map <C-W>d :bp\|bd #<CR>
+" ZenCoding
 let g:user_zen_expandabbr_key = '<c-e>'
+" FuzzyFinder
 let g:fuf_buffer_keyDelete = '<c-w>'
 let g:fuf_bookmarkdir_keyDelete = '<c-w>'
 map <C-T>t :FufFile **/<CR>
@@ -81,8 +85,9 @@ map <C-T>b :FufBuffer<CR>
 map <C-T>o :FufBookmarkDir<CR> 
 map <C-T>a :FufBookmarkDirAdd<CR>
 map <C-T>r :FufRenewCache<CR>
-map <F3> :let @/ = ""<CR>
-map <C-W>d :bd<CR>
+" Syntastic
+map <C-S>s :up<CR>:SyntasticCheck<CR>
+map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
 
 " Hide toolbar in MacVim
 if has("gui_running")
