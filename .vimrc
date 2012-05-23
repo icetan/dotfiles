@@ -42,8 +42,10 @@ filetype plugin indent on
 """ My settings
 syntax on
 colorscheme desert
+" Search
 set hidden
 set hlsearch
+set incsearch " Search-as-you-type.
 set ignorecase
 set smartcase
 " Word wrap
@@ -74,6 +76,7 @@ endif
 set pastetoggle=<F4>
 map <F3> :let @/ = ""<CR>
 map <C-W>d :bp\|bd #<CR>
+map <C-W>n :vert new
 " ZenCoding
 let g:user_zen_expandabbr_key = '<c-e>'
 " FuzzyFinder
