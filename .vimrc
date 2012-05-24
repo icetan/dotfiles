@@ -42,18 +42,32 @@ filetype plugin indent on
 """ My settings
 syntax on
 colorscheme desert
-" Search
+" Buffers
 set hidden
-set hlsearch
-set incsearch " Search-as-you-type.
-set ignorecase
-set smartcase
-" Word wrap
+" Search
+set gdefault                          " Global search by default (/g turns it off).
+set hlsearch                          " Highlight results.
+set incsearch                         " Search-as-you-type.
+set ignorecase                        " Case-insensitive…
+set smartcase                         " …unless phrase includes uppercase.
+" UI
+set fillchars=vert:\                  " No pipes in vertical split separators.
+set listchars=nbsp:·,tab:▸\ ,trail:·  " Configure how invisibles appear.
+set list!                             " Show invisibles.
+set showcmd                           " Show partially typed command sequences.
+set laststatus=2                      " Always show status bar.
+set ruler                             " Show line, column and scroll info in status line.
 set wrap
 set linebreak
+set visualbell                        " Don't beep.
+set modelines=1                       " Use modeline overrides.
+set scrolloff=3                       " Minimum number of lines to always show above/below the caret.
+" Editing
+set backspace=indent,eol,start        " Allow backspacing over everything in insert mode.
+set nojoinspaces                      " 1 space, not 2, when joining sentences.
 " Auto indenting
 set shiftwidth=2
-set tabstop=2
+set softtabstop=2
 set expandtab
 set autoindent
 " Remove backup files
@@ -61,6 +75,7 @@ set nobackup
 set noswapfile
 set nowritebackup
 " Remove UTF-8 BOM
+set encoding=utf-8
 set nobomb
 
 " v7.3 specific stuff
@@ -77,6 +92,12 @@ set pastetoggle=<F4>
 map <F3> :let @/ = ""<CR>
 map <C-W>d :bp\|bd #<CR>
 map <C-W>n :vert new<CR>
+" Tab/shift-tab to indent/outdent in visual mode.
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+" Keep selection when indenting/outdenting.
+vnoremap > >gv
+vnoremap < <gv
 " ZenCoding
 let g:user_zen_expandabbr_key = '<c-e>'
 " FuzzyFinder
