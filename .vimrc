@@ -76,7 +76,7 @@ endif
 set pastetoggle=<F4>
 map <F3> :let @/ = ""<CR>
 map <C-W>d :bp\|bd #<CR>
-map <C-W>n :vert new
+map <C-W>n :vert new<CR>
 " ZenCoding
 let g:user_zen_expandabbr_key = '<c-e>'
 " FuzzyFinder
