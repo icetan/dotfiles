@@ -22,6 +22,7 @@ Bundle 'snipMate'
 Bundle 'Markdown'
 " github repos
 Bundle 'scrooloose/syntastic'
+Bundle 'groenewege/vim-less'
 " non github repos ex.
 "Bundle 'git://git.wincent.com/command-t.git'
 " ...
@@ -42,6 +43,10 @@ filetype plugin indent on
 """ My settings
 syntax on
 colorscheme desert
+" UTF-8
+scriptencoding utf-8
+set encoding=utf-8
+set nobomb
 " Buffers
 set hidden
 " Search
@@ -52,7 +57,7 @@ set ignorecase                        " Case-insensitive…
 set smartcase                         " …unless phrase includes uppercase.
 " UI
 set fillchars=vert:\                  " No pipes in vertical split separators.
-set listchars=nbsp:·,tab:▸\ ,trail:·  " Configure how invisibles appear.
+set listchars=nbsp:·,tab:»·,trail:·  " Configure how invisibles appear.
 set list!                             " Show invisibles.
 set showcmd                           " Show partially typed command sequences.
 set laststatus=2                      " Always show status bar.
@@ -74,9 +79,6 @@ set autoindent
 set nobackup
 set noswapfile
 set nowritebackup
-" Remove UTF-8 BOM
-set encoding=utf-8
-set nobomb
 
 " v7.3 specific stuff
 if v:version >= 703
@@ -86,6 +88,10 @@ if v:version >= 703
   set undofile
   set undodir=~/.vimundo " Need to create this directory for undofile to work
 endif
+
+let g:syntastic_mode_map = { 'mode': 'passive',
+                           \ 'active_filetypes': ['ruby', 'php'],
+                           \ 'passive_filetypes': ['puppet'] }
 
 " Key mappings
 set pastetoggle=<F4>
