@@ -13,18 +13,23 @@ call vundle#rc()
 " required! 
 Bundle 'gmarik/vundle'
 
-" vim-scripts repos
-Bundle 'vim-coffee-script'
+""" vim-scripts repos
 Bundle 'ZenCoding.vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'snipMate'
 Bundle 'Markdown'
-" github repos
+""" github repos
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'bkad/CamelCaseMotion'
 Bundle 'scrooloose/syntastic'
+" language support
+Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
-" non github repos ex.
-"Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'pangloss/vim-javascript'
+""" non github repos
+"ex. Bundle 'git://git.wincent.com/command-t.git'
 " ...
 
 
@@ -67,6 +72,9 @@ set linebreak
 set visualbell                        " Don't beep.
 set modelines=1                       " Use modeline overrides.
 set scrolloff=3                       " Minimum number of lines to always show above/below the caret.
+if has("gui_running")
+  set guioptions=egmrt                " Hide toolbar in MacVim
+endif
 " Editing
 set backspace=indent,eol,start        " Allow backspacing over everything in insert mode.
 set nojoinspaces                      " 1 space, not 2, when joining sentences.
@@ -120,8 +128,6 @@ map <C-T>r :FufRenewCache<CR>
 " Syntastic
 map <C-S>s :up<CR>:SyntasticCheck<CR>
 map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
-
-" Hide toolbar in MacVim
-if has("gui_running")
-  set guioptions=egmrt
-endif
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy/<C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy?<C-R><C-R>=substitute( escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
