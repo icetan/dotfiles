@@ -92,6 +92,8 @@ set pastetoggle=<F4>
 map <F3> :let @/ = ""<CR>
 map <C-W>d :bp\|bd #<CR>
 map <C-W>n :vert new<CR>
+" Make Y consistent with C and D - yank to end of line, not full line.
+nnoremap Y y$
 " Tab/shift-tab to indent/outdent in visual mode.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
