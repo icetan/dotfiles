@@ -81,6 +81,7 @@ set nojoinspaces                      " 1 space, not 2, when joining sentences.
 " Auto indenting
 set shiftwidth=2
 set softtabstop=2
+set tabstop=2
 set expandtab
 set autoindent
 " Remove backup files
