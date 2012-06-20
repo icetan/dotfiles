@@ -17,8 +17,11 @@ Bundle 'gmarik/vundle'
 Bundle 'ZenCoding.vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
-Bundle 'snipMate'
-Bundle 'Markdown'
+" SnipMate
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'honza/snipmate-snippets'
+Bundle 'garbas/vim-snipmate'
 """ github repos
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'bkad/CamelCaseMotion'
