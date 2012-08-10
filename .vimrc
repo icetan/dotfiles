@@ -26,6 +26,7 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'bkad/CamelCaseMotion'
 Bundle 'scrooloose/syntastic'
+Bundle 'kien/ctrlp.vim'
 " language support
 Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
@@ -100,6 +101,8 @@ if v:version >= 703
   set undofile
   set undodir=~/.vimundo " Need to create this directory for undofile to work
 endif
+
+"let g:ctrlp_working_path_mode = ''   " Disable automatic project root resolve.
 
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['ruby', 'php'],
