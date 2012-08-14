@@ -27,6 +27,7 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'bkad/CamelCaseMotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
+Bundle 'danro/rename.vim'
 " language support
 Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
@@ -92,6 +93,8 @@ set autoindent
 set nobackup
 set noswapfile
 set nowritebackup
+" Always forward slashes
+set shellslash
 
 " v7.3 specific stuff
 if v:version >= 703
