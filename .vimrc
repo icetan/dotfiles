@@ -10,13 +10,11 @@ call vundle#rc()
 " $ git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 """ vim-scripts repos
 Bundle 'ZenCoding.vim'
-Bundle 'L9'
-Bundle 'FuzzyFinder'
 " SnipMate
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
@@ -26,7 +24,7 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'bkad/CamelCaseMotion'
 Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
+Bundle 'icetan/ctrlp.vim'
 Bundle 'danro/rename.vim'
 " language support
 Bundle 'tpope/vim-markdown'
@@ -67,7 +65,7 @@ set ignorecase                        " Case-insensitive…
 set smartcase                         " …unless phrase includes uppercase.
 " UI
 set fillchars=vert:\                  " No pipes in vertical split separators.
-set listchars=nbsp:·,tab:»·,trail:·  " Configure how invisibles appear.
+set listchars=nbsp:·,tab:»·,trail:·   " Configure how invisibles appear.
 set list!                             " Show invisibles.
 set showcmd                           " Show partially typed command sequences.
 set laststatus=2                      " Always show status bar.
@@ -127,15 +125,15 @@ vnoremap > >gv
 vnoremap < <gv
 " ZenCoding
 let g:user_zen_expandabbr_key = '<c-e>'
-" FuzzyFinder
-let g:fuf_buffer_keyDelete = '<c-w>'
-let g:fuf_bookmarkdir_keyDelete = '<c-w>'
-map <C-T>t :FufFile **/<CR>
-map <C-T>d :FufDir<CR>
-map <C-T>b :FufBuffer<CR> 
-map <C-T>o :FufBookmarkDir<CR> 
-map <C-T>a :FufBookmarkDirAdd<CR>
-map <C-T>r :FufRenewCache<CR>
+" CtrlP
+map <C-T>f :CtrlPCurFile<CR>
+map <C-T>d :CtrlPDir<CR>
+map <C-T>b :CtrlPBuffer<CR>
+map <C-T>o :CtrlPBookmarkDir<CR>
+map <C-T>a :CtrlPBookmarkDirAdd<CR>
+map <C-T>r :CtrlPClearAllCaches<CR>
+map <C-T>t :CtrlPBufTag<CR>
+map <C-T>T :CtrlPBufTagAll<CR>
 " Syntastic
 map <C-S>s :up<CR>:SyntasticCheck<CR>
 map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
@@ -143,3 +141,14 @@ map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
 vnoremap <silent> * :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy/<C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy?<C-R><C-R>=substitute( escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
+
+" Filetypes
+au BufRead,BufNewFile *.coffeete set ft=html
+
+" CoffeeScript tag support for ctrl-p
+let g:ctrlp_buftag_types = {
+  \ 'coffee' : {
+    \ 'bin': 'coffeetags',
+    \ 'args': '-f -',
+    \ },
+  \ }
