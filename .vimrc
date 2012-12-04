@@ -142,6 +142,7 @@ let g:user_zen_expandabbr_key = '<c-e>'
 " FuzzyFinder
 let g:fuf_buffer_keyDelete = '<c-w>'
 let g:fuf_bookmarkdir_keyDelete = '<c-w>'
+map <C-P>  :FufFile **/<CR>
 map <C-T>t :FufFile **/<CR>
 map <C-T>d :FufDir<CR>
 map <C-T>b :FufBuffer<CR>
@@ -160,11 +161,10 @@ nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 " Autocommands
 au BufRead,BufNewFile *.coffeete set ft=html
 
-
 " CoffeeScript tag support for ctrl-p
-let g:ctrlp_buftag_types = {
-  \ 'coffee' : {
-    \ 'bin': 'coffeetags',
-    \ 'args': '-f -',
-    \ },
-  \ }
+"let g:ctrlp_buftag_types = {
+"  \ 'coffee' : {
+"    \ 'bin': 'coffeetags',
+"    \ 'args': '-f -',
+"    \ },
+"  \ }
