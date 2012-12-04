@@ -15,16 +15,21 @@ Bundle 'gmarik/vundle'
 
 """ vim-scripts repos
 Bundle 'ZenCoding.vim'
+Bundle 'localvimrc'
+" Fuzzy Finder
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+""" github repos
 " SnipMate
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/snipmate-snippets'
 Bundle 'garbas/vim-snipmate'
-""" github repos
+
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'bkad/CamelCaseMotion'
 Bundle 'scrooloose/syntastic'
-Bundle 'icetan/ctrlp.vim'
+"Bundle 'kien/ctrlp.vim'
 Bundle 'danro/rename.vim'
 " language support
 Bundle 'tpope/vim-markdown'
@@ -126,14 +131,23 @@ vnoremap < <gv
 " ZenCoding
 let g:user_zen_expandabbr_key = '<c-e>'
 " CtrlP
-map <C-T>f :CtrlPCurFile<CR>
-map <C-T>d :CtrlPDir<CR>
-map <C-T>b :CtrlPBuffer<CR>
-map <C-T>o :CtrlPBookmarkDir<CR>
-map <C-T>a :CtrlPBookmarkDirAdd<CR>
-map <C-T>r :CtrlPClearAllCaches<CR>
-map <C-T>t :CtrlPBufTag<CR>
-map <C-T>T :CtrlPBufTagAll<CR>
+"map <C-T>f :CtrlPCurFile<CR>
+"map <C-T>d :CtrlPDir<CR>
+"map <C-T>b :CtrlPBuffer<CR>
+"map <C-T>o :CtrlPBookmarkDir<CR>
+"map <C-T>a :CtrlPBookmarkDirAdd<CR>
+"map <C-T>r :CtrlPClearAllCaches<CR>
+"map <C-T>t :CtrlPBufTag<CR>
+"map <C-T>T :CtrlPBufTagAll<CR>
+" FuzzyFinder
+let g:fuf_buffer_keyDelete = '<c-w>'
+let g:fuf_bookmarkdir_keyDelete = '<c-w>'
+map <C-T>t :FufFile **/<CR>
+map <C-T>d :FufDir<CR>
+map <C-T>b :FufBuffer<CR>
+map <C-T>o :FufBookmarkDir<CR>
+map <C-T>a :FufBookmarkDirAdd<CR>
+map <C-T>r :FufRenewCache<CR>
 " Syntastic
 map <C-S>s :up<CR>:SyntasticCheck<CR>
 map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
@@ -141,9 +155,11 @@ map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
 vnoremap <silent> * :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy/<C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy?<C-R><C-R>=substitute( escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
+"nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>:so ~/sessions/
 
-" Filetypes
+" Autocommands
 au BufRead,BufNewFile *.coffeete set ft=html
+
 
 " CoffeeScript tag support for ctrl-p
 let g:ctrlp_buftag_types = {
