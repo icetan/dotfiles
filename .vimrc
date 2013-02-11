@@ -36,6 +36,8 @@ Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'pangloss/vim-javascript'
+" color schemes
+Bundle 'altercation/vim-colors-solarized'
 """ non github repos
 "ex. Bundle 'git://git.wincent.com/command-t.git'
 " ...
@@ -55,7 +57,8 @@ filetype plugin indent on
 
 """ My settings
 syntax on
-colorscheme desert
+set background=dark
+colorscheme solarized
 " UTF-8
 scriptencoding utf-8
 set encoding=utf-8
