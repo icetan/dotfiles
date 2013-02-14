@@ -111,7 +111,12 @@ if v:version >= 703
   set undodir=~/.vimundo " Need to create this directory for undofile to work
 endif
 
-"let g:ctrlp_working_path_mode = ''   " Disable automatic project root resolve.
+" OS exceptions
+if has("win32")
+  set shell=sh.exe
+  set shellcmdflag=--login\ -ic
+  set shellxquote=\"
+endif
 
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['ruby', 'php'],
@@ -163,11 +168,3 @@ nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 
 " Autocommands
 au BufRead,BufNewFile *.coffeete set ft=html
-
-" CoffeeScript tag support for ctrl-p
-"let g:ctrlp_buftag_types = {
-"  \ 'coffee' : {
-"    \ 'bin': 'coffeetags',
-"    \ 'args': '-f -',
-"    \ },
-"  \ }
