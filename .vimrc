@@ -160,6 +160,7 @@ nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 
 " Autocommands
 au BufRead,BufNewFile *.coffeete set ft=html
+au BufRead,BufNewFile *.ino set ft=cpp
 
 " CoffeeScript tag support for ctrl-p
 "let g:ctrlp_buftag_types = {
