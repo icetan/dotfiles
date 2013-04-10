@@ -25,6 +25,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/snipmate-snippets'
 Bundle 'garbas/vim-snipmate'
+Bundle 'tpope/vim-fugitive'
 
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'bkad/CamelCaseMotion'
