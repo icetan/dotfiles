@@ -37,6 +37,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'pangloss/vim-javascript'
+Bundle 'ZeusTheTrueGod/vim-format-js'
 " color schemes
 Bundle 'altercation/vim-colors-solarized'
 """ non github repos
@@ -139,6 +140,7 @@ vnoremap > >gv
 vnoremap < <gv
 " ZenCoding
 let g:user_zen_expandabbr_key = '<c-e>'
+
 " CtrlP
 "map <C-T>f :CtrlPCurFile<CR>
 "map <C-T>d :CtrlPDir<CR>
