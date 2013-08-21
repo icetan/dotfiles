@@ -150,7 +150,36 @@ let g:user_zen_expandabbr_key = '<c-e>'
 "map <C-T>r :CtrlPClearAllCaches<CR>
 "map <C-T>t :CtrlPBufTag<CR>
 "map <C-T>T :CtrlPBufTagAll<CR>
+
 " FuzzyFinder
+function! FufSetIgnore()
+    let exclude_vcs = '^\.(hg|git|bzr|svn|cvs)'
+    let exclude_bin = '\.(o|exe|bak|swp|class|jpeg|jpg|gif|png)$'
+    let ignore = '\v\~$|' . exclude_vcs . '|' . exclude_bin
+
+    let ignorefiles = [ ".gitignore" ]
+    " $HOME . "/.gitignore",
+
+    for ignorefile in ignorefiles
+        if filereadable(ignorefile)
+            for line in readfile(ignorefile)
+                if match(line, '^\s*$') == -1 && match(line, '^#') == -1
+                    let line = substitute(line, '^/', '', '')
+                    let line = substitute(line, '\.', '\\.', 'g')
+                    let line = substitute(line, '\*', '.*', 'g')
+                    let ignore .= '|^' . line
+                endif
+            endfor
+        endif
+    endfor
+
+    let g:fuf_coveragefile_exclude = ignore
+    let g:fuf_file_exclude = ignore
+    let g:fuf_dir_exclude = ignore
+endfunction
+
+call FufSetIgnore()
+
 let g:fuf_buffer_keyDelete = '<c-w>'
 let g:fuf_bookmarkdir_keyDelete = '<c-w>'
 map <C-P>  :FufFile **/<CR>
@@ -159,7 +188,8 @@ map <C-T>d :FufDir<CR>
 map <C-T>b :FufBuffer<CR>
 map <C-T>o :FufBookmarkDir<CR>
 map <C-T>a :FufBookmarkDirAdd<CR>
-map <C-T>r :FufRenewCache<CR>
+map <C-T>r :call FufSetIgnore() <BAR> :FufRenewCache<CR>
+
 " Syntastic
 map <C-S>s :up<CR>:SyntasticCheck<CR>
 map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
