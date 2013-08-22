@@ -157,8 +157,7 @@ function! FufSetIgnore()
     let exclude_bin = '\.(o|exe|bak|swp|class|jpeg|jpg|gif|png)$'
     let ignore = '\v\~$|' . exclude_vcs . '|' . exclude_bin
 
-    let ignorefiles = [ ".gitignore" ]
-    " $HOME . "/.gitignore",
+    let ignorefiles = [ ".gitignore", $HOME . "/.gitignore_global" ]
 
     for ignorefile in ignorefiles
         if filereadable(ignorefile)
