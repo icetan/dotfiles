@@ -45,7 +45,7 @@ Bundle 'altercation/vim-colors-solarized'
 " ...
 
 
-" required! 
+" required!
 filetype plugin indent on
 " Brief help
 " :BundleList          - list configured bundles
@@ -104,6 +104,9 @@ set nowritebackup
 " Always forward slashes
 set shellslash
 
+" Use mouse in terminal
+set mouse=a
+
 " v7.3 specific stuff
 if v:version >= 703
   " Margin line
@@ -157,7 +160,7 @@ function! FufSetIgnore()
     let exclude_bin = '\.(o|exe|bak|swp|class|jpeg|jpg|gif|png)$'
     let ignore = '\v\~$|' . exclude_vcs . '|' . exclude_bin
 
-    let ignorefiles = [ ".gitignore", $HOME . "/.gitignore_global" ]
+    let ignorefiles = [ ".gitignore", ".hgignore" ]
 
     for ignorefile in ignorefiles
         if filereadable(ignorefile)
