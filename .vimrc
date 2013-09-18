@@ -156,29 +156,41 @@ let g:user_zen_expandabbr_key = '<c-e>'
 "map <C-T>T :CtrlPBufTagAll<CR>
 
 " FuzzyFinder
+function g:GlobToRegex(glob)
+  let glob = a:glob
+  " Escape
+  let glob = substitute(glob, '^/', '', '')
+  let glob = substitute(glob, '\.', '\\.', 'g')
+  " Convert
+  let glob = substitute(glob, '?', '.', 'g')
+  let glob = substitute(glob, '\*\*', '.\n', 'g')
+  let glob = substitute(glob, '\*', '[^/]*', 'g')
+  let glob = substitute(glob, '\n', '*', 'g')
+  return glob
+endfunction
+
 function! FufSetIgnore()
-    let exclude_vcs = '^\.(hg|git|bzr|svn|cvs)'
-    let exclude_bin = '\.(o|exe|bak|swp|class|jpeg|jpg|gif|png)$'
-    let ignore = '\v\~$|' . exclude_vcs . '|' . exclude_bin
+  let exclude_vcs = '^\.(hg|git|bzr|svn|cvs)'
+  let exclude_bin = '\.(o|exe|bak|swp|class|jpeg|jpg|gif|png)$'
+  let ignore = '\v\~$|' . exclude_vcs . '|' . exclude_bin
 
-    let ignorefiles = [ ".gitignore", ".hgignore" ]
+  let ignorefiles = [ '.gitignore',
+                    \ '.hgignore',
+                    \ $HOME . '/.gitignore_global' ]
 
-    for ignorefile in ignorefiles
-        if filereadable(ignorefile)
-            for line in readfile(ignorefile)
-                if match(line, '^\s*$') == -1 && match(line, '^#') == -1
-                    let line = substitute(line, '^/', '', '')
-                    let line = substitute(line, '\.', '\\.', 'g')
-                    let line = substitute(line, '\*', '.*', 'g')
-                    let ignore .= '|^' . line
-                endif
-            endfor
+  for ignorefile in ignorefiles
+    if filereadable(ignorefile)
+      for line in readfile(ignorefile)
+        if match(line, '^\s*$') == -1 && match(line, '^#') == -1
+          let ignore .= '|^' . g:GlobToRegex(line)
         endif
-    endfor
+      endfor
+    endif
+  endfor
 
-    let g:fuf_coveragefile_exclude = ignore
-    let g:fuf_file_exclude = ignore
-    let g:fuf_dir_exclude = ignore
+  let g:fuf_coveragefile_exclude = ignore
+  let g:fuf_file_exclude = ignore
+  let g:fuf_dir_exclude = ignore
 endfunction
 
 call FufSetIgnore()
