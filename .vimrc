@@ -19,6 +19,7 @@ Bundle 'localvimrc'
 " Fuzzy Finder
 Bundle 'L9'
 Bundle 'FuzzyFinder'
+Bundle 'icetan/fuf-fast'
 """ github repos
 " SnipMate
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -184,8 +185,8 @@ call FufSetIgnore()
 
 let g:fuf_buffer_keyDelete = '<c-w>'
 let g:fuf_bookmarkdir_keyDelete = '<c-w>'
-map <C-P>  :FufFile **/<CR>
-map <C-T>t :FufFile **/<CR>
+map <C-P>  :FufFast<CR>
+map <C-T>t :FufFast<CR>
 map <C-T>d :FufDir<CR>
 map <C-T>b :FufBuffer<CR>
 map <C-T>o :FufBookmarkDir<CR>
