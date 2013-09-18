@@ -170,7 +170,7 @@ function g:GlobToRegex(glob)
 endfunction
 
 function! FufSetIgnore()
-  let exclude_vcs = '^\.(hg|git|bzr|svn|cvs)'
+  let exclude_vcs = '(^|/)\.(hg|git|bzr|svn|cvs)(/|$)'
   let exclude_bin = '\.(o|exe|bak|swp|class|jpeg|jpg|gif|png)$'
   let ignore = '\v\~$|' . exclude_vcs . '|' . exclude_bin
 
