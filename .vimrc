@@ -190,7 +190,7 @@ function! FufSetIgnore()
 
   let g:fuf_coveragefile_exclude = ignore
   let g:fuf_file_exclude = ignore
-  let g:fuf_dir_exclude = ignore
+  "let g:fuf_dir_exclude = ignore
 endfunction
 
 call FufSetIgnore()
