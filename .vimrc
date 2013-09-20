@@ -22,16 +22,14 @@ Bundle 'FuzzyFinder'
 Bundle 'icetan/fuf-fast'
 """ github repos
 " SnipMate
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'honza/snipmate-snippets'
-Bundle 'garbas/vim-snipmate'
+"Bundle 'MarcWeber/vim-addon-mw-utils'
+"Bundle 'tomtom/tlib_vim'
+"Bundle 'honza/snipmate-snippets'
+"Bundle 'garbas/vim-snipmate'
 Bundle 'tpope/vim-fugitive'
 
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'bkad/CamelCaseMotion'
-Bundle 'scrooloose/syntastic'
-"Bundle 'kien/ctrlp.vim'
+"Bundle 'nathanaelkane/vim-indent-guides'
+"Bundle 'bkad/CamelCaseMotion'
 Bundle 'danro/rename.vim'
 " language support
 Bundle 'tpope/vim-markdown'
@@ -124,9 +122,9 @@ if has("win32")
   set shellxquote=\"
 endif
 
-let g:syntastic_mode_map = { 'mode': 'passive',
-                           \ 'active_filetypes': ['ruby', 'php'],
-                           \ 'passive_filetypes': ['puppet'] }
+"let g:syntastic_mode_map = { 'mode': 'passive',
+"                           \ 'active_filetypes': ['ruby', 'php'],
+"                           \ 'passive_filetypes': ['puppet'] }
 
 " Key mappings
 let mapleader = ","
@@ -213,12 +211,15 @@ map <C-T>a :FufBookmarkDirAdd<CR>
 map <C-T>r :call FufSetIgnore() <BAR> :FufRenewCache<CR>
 
 " Syntastic
-map <C-S>s :up<CR>:SyntasticCheck<CR>
-map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
+"map <C-S>s :up<CR>:SyntasticCheck<CR>
+"map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
+
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy/<C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy?<C-R><C-R>=substitute( escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
+
 nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
+nnoremap <leader>d Gdiff
 "nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>:so ~/sessions/
 
 " Autocommands
