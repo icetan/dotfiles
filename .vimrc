@@ -180,17 +180,24 @@ function! FufSetIgnore()
 
   for ignorefile in ignorefiles
     if filereadable(ignorefile)
+      let exType = 'glob'
       for line in readfile(ignorefile)
-        if match(line, '^\s*$') == -1 && match(line, '^#') == -1
-          let ignore .= '|^' . g:GlobToRegex(line)
+        if match(line, '^syntax:') == 0
+          if match(line, '^syntax:\s*regexp\s*$') == 0
+            let exType = 'regex'
+          elseif match(line, '^syntax:\s*glob\s*$') == 0
+            let exType = 'glob'
+          endif
+        elseif match(line, '^\s*$') == -1 && match(line, '^#') == -1
+          let ignore .= '|' . (exType ==# 'glob' ? g:GlobToRegex(line) : line)
         endif
       endfor
     endif
   endfor
 
-  let g:fuf_coveragefile_exclude = ignore
   let g:fuf_file_exclude = ignore
   "let g:fuf_dir_exclude = ignore
+  "let g:fuf_coveragefile_exclude = ignore
 endfunction
 
 call FufSetIgnore()
