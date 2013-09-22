@@ -14,12 +14,14 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 """ vim-scripts repos
+Bundle 'cd-hook'
 Bundle 'ZenCoding.vim'
 Bundle 'localvimrc'
 " Fuzzy Finder
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'icetan/fuf-fast'
+Bundle 'icetan/fuf-ignore'
 """ github repos
 " SnipMate
 "Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -154,51 +156,8 @@ let g:user_zen_expandabbr_key = '<c-e>'
 "map <C-T>T :CtrlPBufTagAll<CR>
 
 " FuzzyFinder
-function g:GlobToRegex(glob)
-  let glob = a:glob
-  " Escape
-  let glob = substitute(glob, '^/', '', '')
-  let glob = substitute(glob, '\.', '\\.', 'g')
-  " Convert
-  let glob = substitute(glob, '?', '.', 'g')
-  let glob = substitute(glob, '\*\*', '.\n', 'g')
-  let glob = substitute(glob, '\*', '[^/]*', 'g')
-  let glob = substitute(glob, '\n', '*', 'g')
-  return glob
-endfunction
 
-function! FufSetIgnore()
-  let exclude_vcs = '(^|/)\.(hg|git|bzr|svn|cvs)(/|$)'
-  let exclude_bin = '\.(o|exe|bak|swp|class|jpeg|jpg|gif|png)$'
-  let ignore = '\v\~$|' . exclude_vcs . '|' . exclude_bin
-
-  let ignorefiles = [ '.gitignore',
-                    \ '.hgignore',
-                    \ $HOME . '/.gitignore_global' ]
-
-  for ignorefile in ignorefiles
-    if filereadable(ignorefile)
-      let exType = 'glob'
-      for line in readfile(ignorefile)
-        if match(line, '^syntax:') == 0
-          if match(line, '^syntax:\s*regexp\s*$') == 0
-            let exType = 'regex'
-          elseif match(line, '^syntax:\s*glob\s*$') == 0
-            let exType = 'glob'
-          endif
-        elseif match(line, '^\s*$') == -1 && match(line, '^#') == -1
-          let ignore .= '|' . (exType ==# 'glob' ? g:GlobToRegex(line) : line)
-        endif
-      endfor
-    endif
-  endfor
-
-  let g:fuf_file_exclude = ignore
-  "let g:fuf_dir_exclude = ignore
-  "let g:fuf_coveragefile_exclude = ignore
-endfunction
-
-call FufSetIgnore()
+let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|sw[po]|class|jpeg|jpg|gif|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
 
 let g:fuf_buffer_keyDelete = '<c-w>'
 let g:fuf_bookmarkdir_keyDelete = '<c-w>'
@@ -208,7 +167,10 @@ map <C-T>d :FufDir<CR>
 map <C-T>b :FufBuffer<CR>
 map <C-T>o :FufBookmarkDir<CR>
 map <C-T>a :FufBookmarkDirAdd<CR>
-map <C-T>r :call FufSetIgnore() <BAR> :FufRenewCache<CR>
+map <C-T>r :FufIgnoreUpdate<CR>
+
+autocmd User chdir FufIgnoreUpdate
+call fuf#ignore#Update()
 
 " Syntastic
 "map <C-S>s :up<CR>:SyntasticCheck<CR>
