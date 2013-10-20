@@ -34,14 +34,20 @@ Bundle 'tpope/vim-fugitive'
 "Bundle 'nathanaelkane/vim-indent-guides'
 "Bundle 'bkad/CamelCaseMotion'
 Bundle 'danro/rename.vim'
+
 " language support
 Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'pangloss/vim-javascript'
 Bundle 'ZeusTheTrueGod/vim-format-js'
+
+" linters
+Bundle 'Shutnik/jshint2.vim'
+
 " color schemes
 Bundle 'altercation/vim-colors-solarized'
+
 """ non github repos
 "ex. Bundle 'git://git.wincent.com/command-t.git'
 " ...
