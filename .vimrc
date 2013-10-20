@@ -17,12 +17,13 @@ Bundle 'gmarik/vundle'
 Bundle 'cd-hook'
 Bundle 'ZenCoding.vim'
 Bundle 'localvimrc'
+
 " Fuzzy Finder
 Bundle 'L9'
 Bundle 'FuzzyFinder'
-Bundle 'icetan/fuf-fast'
-Bundle 'icetan/fuf-ignore'
-""" github repos
+Bundle 'icetan/vim-fuf-fast'
+Bundle 'icetan/vim-fuf-ignore'
+
 " SnipMate
 "Bundle 'MarcWeber/vim-addon-mw-utils'
 "Bundle 'tomtom/tlib_vim'
