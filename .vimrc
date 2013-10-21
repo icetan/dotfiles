@@ -39,6 +39,7 @@ Bundle 'danro/rename.vim'
 Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'mintplant/vim-literate-coffeescript'
 Bundle 'pangloss/vim-javascript'
 Bundle 'ZeusTheTrueGod/vim-format-js'
 
