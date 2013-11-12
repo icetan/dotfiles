@@ -13,10 +13,14 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
-""" vim-scripts repos
-Bundle 'cd-hook'
-Bundle 'ZenCoding.vim'
+" Status line
+Bundle 'bling/vim-airline'
+
+" Zen
+Bundle 'mattn/emmet-vim'
+
 Bundle 'localvimrc'
+Bundle 'cd-hook'
 
 " Fuzzy Finder
 Bundle 'L9'
@@ -96,6 +100,9 @@ set modelines=1                       " Use modeline overrides.
 set scrolloff=3                       " Minimum number of lines to always show above/below the caret.
 if has("gui_running")
   set guioptions=egmrt                " Hide toolbar in MacVim
+  " Set powerline font symbols
+  set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
+  let g:airline_powerline_fonts = 1
 endif
 " Editing
 set backspace=indent,eol,start        " Allow backspacing over everything in insert mode.
