@@ -100,7 +100,8 @@ set modelines=1                       " Use modeline overrides.
 set scrolloff=3                       " Minimum number of lines to always show above/below the caret.
 if has("gui_running")
   set guioptions=egmrt                " Hide toolbar in MacVim
-  " Set powerline font symbols
+  " Set powerline font, get them fron
+  " https://github.com/Lokaltog/powerline-fonts
   set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
   let g:airline_powerline_fonts = 1
 endif
@@ -157,8 +158,6 @@ vnoremap <S-Tab> <gv
 " Keep selection when indenting/outdenting.
 vnoremap > >gv
 vnoremap < <gv
-" ZenCoding
-let g:user_zen_expandabbr_key = '<c-e>'
 
 " CtrlP
 "map <C-T>f :CtrlPCurFile<CR>
