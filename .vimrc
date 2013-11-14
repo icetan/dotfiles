@@ -98,13 +98,6 @@ set linebreak
 set visualbell                        " Don't beep.
 set modelines=1                       " Use modeline overrides.
 set scrolloff=3                       " Minimum number of lines to always show above/below the caret.
-if has("gui_running")
-  set guioptions=egmrt                " Hide toolbar in MacVim
-  " Set powerline font, get them fron
-  " https://github.com/Lokaltog/powerline-fonts
-  set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
-  let g:airline_powerline_fonts = 1
-endif
 " Editing
 set backspace=indent,eol,start        " Allow backspacing over everything in insert mode.
 set nojoinspaces                      " 1 space, not 2, when joining sentences.
@@ -123,6 +116,20 @@ set shellslash
 
 " Use mouse in terminal
 set mouse=a
+
+" Airline section config
+function! AirlineInit()
+  let g:airline_section_c = airline#section#create_left(['%{split(getcwd(), "/")[-1]}', 'file'])
+endfunction
+autocmd VimEnter * call AirlineInit()
+
+if has("gui_running")
+  set guioptions=egmrt                " Hide toolbar in MacVim
+  " Set powerline font, get them fron
+  " https://github.com/Lokaltog/powerline-fonts
+  set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
+  let g:airline_powerline_fonts = 1
+endif
 
 " v7.3 specific stuff
 if v:version >= 703
