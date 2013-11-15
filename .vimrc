@@ -116,7 +116,8 @@ set noswapfile
 set nowritebackup
 " Always forward slashes
 set shellslash
-
+" Save editor state to ~/.viminfo
+set viminfo=%,!,'50,\"100,:100,n~/.viminfo
 " Use mouse in terminal
 set mouse=a
 
