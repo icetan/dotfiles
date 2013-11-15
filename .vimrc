@@ -224,8 +224,13 @@ vnoremap <silent> * :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype
 vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy?<C-R><C-R>=substitute( escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 
 nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
-nnoremap <leader>d Gdiff
-"nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>:so ~/sessions/
+
+" Fugitive and diff key mappings
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap d2 :diffget //2 \| diffup<CR>
+nnoremap d3 :diffget //3 \| diffup<CR>
+nnoremap du :diffup<CR>
 
 " Autocommands
 au BufRead,BufNewFile *.coffeete set ft=html
