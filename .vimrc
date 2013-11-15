@@ -45,7 +45,8 @@ Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'mintplant/vim-literate-coffeescript'
-Bundle 'pangloss/vim-javascript'
+"Bundle 'pangloss/vim-javascript'
+"Bundle 'jelera/vim-javascript-syntax'
 Bundle 'ZeusTheTrueGod/vim-format-js'
 
 " linters
