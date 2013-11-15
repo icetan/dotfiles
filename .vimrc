@@ -204,7 +204,7 @@ map <C-T>o :FufBookmarkDir<CR>
 map <C-T>a :FufBookmarkDirAdd<CR>
 map <C-T>r :FufIgnoreUpdate<CR>
 
-autocmd User chdir FufIgnoreUpdate
+"autocmd User chdir FufIgnoreUpdate   " Depends on cd-hook
 call fuf#ignore#Update()
 
 " Syntastic
