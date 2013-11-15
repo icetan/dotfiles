@@ -19,8 +19,9 @@ Bundle 'bling/vim-airline'
 " Zen
 Bundle 'mattn/emmet-vim'
 
-Bundle 'localvimrc'
-Bundle 'cd-hook'
+" .lvimrc files for project local editor settings
+Bundle 'embear/vim-localvimrc'
+"Bundle 'cd-hook'
 
 " Fuzzy Finder
 Bundle 'L9'
@@ -29,10 +30,6 @@ Bundle 'icetan/vim-fuf-fast'
 Bundle 'icetan/vim-fuf-ignore'
 
 " SnipMate
-"Bundle 'MarcWeber/vim-addon-mw-utils'
-"Bundle 'tomtom/tlib_vim'
-"Bundle 'honza/snipmate-snippets'
-"Bundle 'garbas/vim-snipmate'
 Bundle 'tpope/vim-fugitive'
 Bundle 'mhinz/vim-signify'
 
