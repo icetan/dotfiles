@@ -132,8 +132,9 @@ let g:airline_left_alt_sep = '|'
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = '|'
 let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.readonly = '⨯'
+let g:airline_symbols.readonly = '▲'
 let g:airline_symbols.linenr = 'L'
+let g:airline_symbols.whitespace = '●'
 
 " Add current work dir to status line
 "function! AirlineInit()
@@ -192,7 +193,6 @@ vnoremap < <gv
 "map <C-T>T :CtrlPBufTagAll<CR>
 
 " FuzzyFinder
-
 let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|sw[po]|class|jpeg|jpg|gif|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
 
 let g:fuf_buffer_keyDelete = '<c-w>'
