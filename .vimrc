@@ -233,3 +233,5 @@ nnoremap <leader>d Gdiff
 " Autocommands
 au BufRead,BufNewFile *.coffeete set ft=html
 au BufRead,BufNewFile *.ino set ft=cpp
+
+let g:localvimrc_persistent = 1
