@@ -119,18 +119,29 @@ set shellslash
 " Use mouse in terminal
 set mouse=a
 
-" Airline section config
-function! AirlineInit()
-  let g:airline_section_c = airline#section#create_left(['%{split(getcwd(), "/")[-1]}', 'file'])
-endfunction
-autocmd VimEnter * call AirlineInit()
+" Airline config
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = '|'
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = '|'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.readonly = '⨯'
+let g:airline_symbols.linenr = 'L'
+
+" Add current work dir to status line
+"function! AirlineInit()
+"  let g:airline_section_c = airline#section#create_left(['%{split(getcwd(), "/")[-1]}', 'file'])
+"endfunction
+"autocmd VimEnter * call AirlineInit()
 
 if has("gui_running")
   set guioptions=egmrt                " Hide toolbar in MacVim
-  " Set powerline font, get them fron
-  " https://github.com/Lokaltog/powerline-fonts
-  set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
-  let g:airline_powerline_fonts = 1
+  set guifont=Menlo:h11
 endif
 
 " v7.3 specific stuff
