@@ -75,6 +75,7 @@ filetype plugin indent on
 """ My settings
 syntax on
 set background=dark
+let g:solarized_visibility="low"
 colorscheme solarized
 " UTF-8
 scriptencoding utf-8
@@ -90,7 +91,8 @@ set ignorecase                        " Case-insensitive…
 set smartcase                         " …unless phrase includes uppercase.
 " UI
 set fillchars=vert:\                  " No pipes in vertical split separators.
-set listchars=nbsp:·,tab:»·,trail:·   " Configure how invisibles appear.
+"set listchars=nbsp:·,tab:»\ ,trail:·   " Configure how invisibles appear.
+set listchars=eol:¬,extends:»,tab:▸\ ,trail:›
 set list!                             " Show invisibles.
 set showcmd                           " Show partially typed command sequences.
 set laststatus=2                      " Always show status bar.
