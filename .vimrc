@@ -228,6 +228,7 @@ nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 " Fugitive and diff key mappings
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>gr :Gread<CR>
 nnoremap d2 :diffget //2 \| diffup<CR>
 nnoremap d3 :diffget //3 \| diffup<CR>
 nnoremap du :diffup<CR>
