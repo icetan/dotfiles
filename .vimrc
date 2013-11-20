@@ -38,12 +38,12 @@ Bundle 'mhinz/vim-signify'
 Bundle 'danro/rename.vim'
 
 " language support
-Bundle 'tpope/vim-markdown'
-Bundle 'groenewege/vim-less'
+Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'mintplant/vim-literate-coffeescript'
-"Bundle 'pangloss/vim-javascript'
-"Bundle 'jelera/vim-javascript-syntax'
+Bundle 'tpope/vim-markdown'
+Bundle 'groenewege/vim-less'
+
 Bundle 'ZeusTheTrueGod/vim-format-js'
 
 " linters
