@@ -29,9 +29,12 @@ Bundle 'FuzzyFinder'
 Bundle 'icetan/vim-fuf-fast'
 Bundle 'icetan/vim-fuf-ignore'
 
-" SnipMate
+" VCS
 Bundle 'tpope/vim-fugitive'
 Bundle 'mhinz/vim-signify'
+
+" Movement
+Bundle 'jayflo/vim-skip'
 
 "Bundle 'nathanaelkane/vim-indent-guides'
 "Bundle 'bkad/CamelCaseMotion'
