@@ -1,0 +1,19 @@
+[user]
+    name = Christopher Fredén
+    email = c.freden@gmail.com
+[core]
+    excludesfile = ~/.gitignore_global
+    editor = vim
+[diff]
+    tool = mvimdiff
+[difftool "mvimdiff"]
+    cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+[push]
+    default = simple
+[alias]
+    glog = log --graph --decorate --branches --all
+    ls = log --branches --all --pretty=format:"%C(auto)%h\\ (%ad)\\ %Cblue<%an>%x09%Creset%s%C(auto)%d" --decorate --date=relative
+    lsg = log --branches --all --pretty=format:"%C(auto)%h\\ (%ad)\\ %Cblue<%an>%x09%Creset%s%C(auto)%d" --decorate --date=relative --graph
+    incoming = "!git remote update -p; git log ..@{u}"
+    outgoing = log @{u}..
+    diffall = "!mvim -p $(git diff --name-only $*) -c \"tabdo Gdiff $*\" #"
