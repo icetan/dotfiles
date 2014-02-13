@@ -1,3 +1,5 @@
+[include]
+    path = ~/.gitconfig.user
 [core]
     excludesfile = ~/.gitignore_global
     editor = vim
