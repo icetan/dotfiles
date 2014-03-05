@@ -128,6 +128,7 @@ set shellslash
 set viminfo=%,!,'50,\"100,:100,n~/.viminfo
 " Use mouse in terminal
 set mouse=a
+set mousemodel=extend
 
 " Airline config
 if !exists('g:airline_symbols')
