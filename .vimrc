@@ -74,9 +74,16 @@ filetype plugin indent on
 
 """ My settings
 syntax on
+
+if has("gui_running")
+  let g:solarized_visibility="low"
+  set guioptions=egmrt                " Hide toolbar in MacVim
+  set guifont=Menlo:h11
+endif
+
 set background=dark
-let g:solarized_visibility="low"
 colorscheme solarized
+
 " UTF-8
 scriptencoding utf-8
 set encoding=utf-8
@@ -143,11 +150,6 @@ let g:airline#extensions#hunks#non_zero_only = 1
 "  let g:airline_section_c = airline#section#create_left(['%{split(getcwd(), "/")[-1]}', 'file'])
 "endfunction
 "autocmd VimEnter * call AirlineInit()
-
-if has("gui_running")
-  set guioptions=egmrt                " Hide toolbar in MacVim
-  set guifont=Menlo:h11
-endif
 
 " v7.3 specific stuff
 if v:version >= 703
