@@ -244,7 +244,11 @@ nnoremap du :diffup<CR>
 au BufRead,BufNewFile *.coffeete set ft=html
 au BufRead,BufNewFile *.ino set ft=cpp
 
-command -nargs=+ Rgrep execute 'silent grep! -R --exclude-dir={node_modules,.git,.hg} <args>' | copen 20
+" Nicer grep
+command -nargs=+ Rgrep execute 'silent grep! -R --exclude-dir={node_modules,.git,.hg} <args>' | copen
+function! RgrepLast()
+  execute ':Rgrep "' . substitute(substitute(@/, '^\\<', '', ''), '\\>$', '', '') . '" .'
+endfunction
+nnoremap <leader>/ :call RgrepLast()<CR>
 
 let g:localvimrc_persistent = 1
-
