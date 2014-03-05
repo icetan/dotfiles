@@ -103,8 +103,9 @@ set list!                             " Show invisibles.
 set showcmd                           " Show partially typed command sequences.
 set laststatus=2                      " Always show status bar.
 set ruler                             " Show line, column and scroll info in status line.
-set wrap
+set wrap                              " Wrap lines.
 set linebreak
+set showbreak=↵                       " Line wrap char.
 set visualbell                        " Don't beep.
 set modelines=1                       " Use modeline overrides.
 set scrolloff=3                       " Minimum number of lines to always show above/below the caret.
