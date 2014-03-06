@@ -249,7 +249,7 @@ au BufRead,BufNewFile *.coffeete set ft=html
 au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
-command -nargs=+ Rgrep execute 'silent grep! -R --exclude-dir={node_modules,.git,.hg} <args>' | copen
+command -nargs=+ Rgrep execute 'silent grep! -Ri --exclude-dir={node_modules,.git,.hg} <args>' | copen
 function! RgrepLast()
   execute ':Rgrep "' . substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '') . '" .'
 endfunction
