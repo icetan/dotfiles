@@ -227,16 +227,18 @@ hi! link SignColumn LineNr
 
 " Highlight selected text (visual mode), forwards and `#` only higlights
 " witouth jumping.
-nnoremap # *``
-vnoremap <silent> * :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy/<C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy:let @/=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>gV:call setreg('"', old_reg, old_regtype)<CR>
+nnoremap <silent># :let @/='\<'.expand('<cword>').'\>'<CR>
+vnoremap <silent>* :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy/<C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent># :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy:let @/=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 "vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy?<C-R><C-R>=substitute(escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 "nnoremap <silent> ¨ :let @/='\<'.expand('<cword>').'\>'<CR>
-nnoremap <leader>m :<C-U>execute 'SearchBuffers ' . getreg('/')<Bar>let @/=''<CR>
-nnoremap <leader>c :SearchBuffersReset<CR>:let @/=''<CR>
+nnoremap <silent><leader>m :execute 'SearchBuffers ' . getreg('/')<CR>:let @/=''<CR>
+nnoremap <silent><leader>c :SearchBuffersReset<CR>:let @/=''<CR>
 
-nnoremap <leader>n :cnf<CR>
-nnoremap <leader>N :cpf<CR>
+nnoremap <silent><leader>n :cn<CR>
+nnoremap <silent><leader>p :cp<CR>
+nnoremap <silent><leader>N :cnf<CR>
+nnoremap <silent><leader>P :cpf<CR>
 
 "nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 
@@ -257,6 +259,6 @@ command -nargs=+ Rgrep execute 'silent grep! -Ri --exclude-dir={node_modules,.gi
 function! RgrepLast()
   execute ':Rgrep "' . substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '') . '" .'
 endfunction
-nnoremap <leader>/ :call RgrepLast()<CR>
+nnoremap <silent><leader>f :call RgrepLast()<CR>
 
 let g:localvimrc_persistent = 1
