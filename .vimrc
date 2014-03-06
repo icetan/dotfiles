@@ -50,7 +50,7 @@ Bundle 'groenewege/vim-less'
 Bundle 'ZeusTheTrueGod/vim-format-js'
 
 " linters
-Bundle 'Shutnik/jshint2.vim'
+Bundle 'walm/jshint.vim'
 
 " color schemes
 Bundle 'altercation/vim-colors-solarized'
@@ -220,10 +220,7 @@ call fuf#ignore#Update()
 "map <C-S>s :up<CR>:SyntasticCheck<CR>
 "map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
 
-nnoremap <silent><F1> :JSHint<CR>
-inoremap <silent><F1> <C-O>:JSHint<CR>
-vnoremap <silent><F1> :JSHint<CR>
-cnoremap <F1> JSHint
+nnoremap <silent><leader>l :JSHint<CR>
 
 " Set sign column color to same as line numbers
 hi! link SignColumn LineNr
