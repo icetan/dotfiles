@@ -55,6 +55,8 @@ Bundle 'Shutnik/jshint2.vim'
 " color schemes
 Bundle 'altercation/vim-colors-solarized'
 
+Bundle 'MultipleSearch'
+
 """ non github repos
 "ex. Bundle 'git://git.wincent.com/command-t.git'
 " ...
@@ -228,16 +230,18 @@ hi! link SignColumn LineNr
 
 " Highlight selected text (visual mode), forwards and `#` only higlights
 " witouth jumping.
-nnoremap # #``
+nnoremap # *``
 vnoremap <silent> * :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy/<C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy:let @/=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 "vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy?<C-R><C-R>=substitute(escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 "nnoremap <silent> ¨ :let @/='\<'.expand('<cword>').'\>'<CR>
+nnoremap <leader>m :<C-U>execute 'SearchBuffers ' . getreg('/')<Bar>let @/=''<CR>
+nnoremap <leader>c :SearchBuffersReset<CR>:let @/=''<CR>
 
 nnoremap <leader>n :cnf<CR>
 nnoremap <leader>N :cpf<CR>
 
-nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
+"nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 
 " Fugitive and diff key mappings
 nnoremap <leader>gd :Gdiff<CR>
