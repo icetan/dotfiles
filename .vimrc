@@ -256,10 +256,13 @@ au BufRead,BufNewFile *.coffeete set ft=html
 au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
-command -nargs=+ Rgrep execute 'silent grep! -Ri --exclude-dir={node_modules,.git,.hg} <args>' | copen
-function! RgrepLast()
-  execute ':Rgrep "' . substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '') . '" .'
+function! FgrepFunc(exp, ...)
+  let l:files = join(g:fuf_fast_find((a:0 > 0 ? a:1 : '.'), g:fuf_file_exclude), ' ')
+  execute 'silent grep! -Ii ' . a:exp . ' ' . l:files
 endfunction
-nnoremap <silent><leader>f :call RgrepLast()<CR>
+
+"command -nargs=+ Rgrep execute 'silent grep! -RIi --exclude-dir={node_modules,.git,.hg,.svn} <args>' | copen
+command -nargs=+ Fgrep call FgrepFunc(<f-args>) | copen
+nnoremap <silent><leader>f :call FgrepFunc(substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', ''))<CR>:copen<CR>
 
 let g:localvimrc_persistent = 1
