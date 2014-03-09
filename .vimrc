@@ -46,6 +46,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'mintplant/vim-literate-coffeescript'
 Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
+Bundle 'ap/vim-css-color'
 
 Bundle 'ZeusTheTrueGod/vim-format-js'
 
