@@ -56,7 +56,7 @@ Bundle 'walm/jshint.vim'
 " color schemes
 Bundle 'altercation/vim-colors-solarized'
 
-Bundle 'MultipleSearch'
+"Bundle 'MultipleSearch'
 
 """ non github repos
 "ex. Bundle 'git://git.wincent.com/command-t.git'
@@ -233,8 +233,10 @@ vnoremap <silent>* :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype(
 vnoremap <silent># :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy:let @/=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 "vnoremap <silent> # :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>gvy?<C-R><C-R>=substitute(escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>gV:call setreg('"', old_reg, old_regtype)<CR>
 "nnoremap <silent> ¨ :let @/='\<'.expand('<cword>').'\>'<CR>
-nnoremap <silent><leader>m :execute 'SearchBuffers ' . getreg('/')<CR>:let @/=''<CR>
-nnoremap <silent><leader>c :SearchBuffersReset<CR>:let @/=''<CR>
+
+" TODO: Add multiple higlights
+"nnoremap <silent><leader>m :execute 'SearchBuffers ' . getreg('/')<CR>:let @/=''<CR>
+"nnoremap <silent><leader>c :SearchBuffersReset<CR>:let @/=''<CR>
 
 nnoremap <silent><leader>n :cn<CR>
 nnoremap <silent><leader>p :cp<CR>
