@@ -253,6 +253,9 @@ nnoremap d2 :diffget //2 \| diffup<CR>
 nnoremap d3 :diffget //3 \| diffup<CR>
 nnoremap du :diffup<CR>
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
 " Autocommands
 au BufRead,BufNewFile *.coffeete set ft=html
 au BufRead,BufNewFile *.ino set ft=cpp
