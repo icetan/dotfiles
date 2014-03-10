@@ -79,13 +79,13 @@ filetype plugin indent on
 syntax on
 
 if has("gui_running")
-  let g:solarized_visibility="low"
   set guioptions=egmrt                " Hide toolbar in MacVim
   set guifont=Menlo:h11
 endif
 
 set background=dark
 colorscheme solarized
+highlight SignColumn ctermbg=8
 
 " UTF-8
 scriptencoding utf-8
