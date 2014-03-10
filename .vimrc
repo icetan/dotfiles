@@ -54,7 +54,7 @@ Bundle 'ZeusTheTrueGod/vim-format-js'
 Bundle 'walm/jshint.vim'
 
 " color schemes
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'icetan/vim-colors-solarized'
 
 "Bundle 'MultipleSearch'
 
