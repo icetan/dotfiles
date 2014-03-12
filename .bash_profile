@@ -3,7 +3,7 @@ PS1='\e[1;30m\h \e[0m\w'
 function _git_prompt() {
   local git_status="$(__git_ps1 '%s' | sed 's/\(.*\) /\1/')"
   if [ "$git_status" ]; then
-    if ( echo "$git_status" | grep -q '\*%\?$' ); then
+    if ( echo "$git_status" | grep -q '[\+\*]%\?$' ); then
         local color=$'\e[31m'
     elif ( echo "$git_status" | grep -q '%$' ); then
         local color=$'\e[33m'
