@@ -1,3 +1,5 @@
+export CLICOLOR=1
+
 PS1='\e[1;30m\h \e[0m\w'
 
 function _git_prompt() {
