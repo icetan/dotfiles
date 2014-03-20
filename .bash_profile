@@ -1,18 +1,19 @@
 export CLICOLOR=1
 
-PS1="\[\e[1;30m\]\h \[\e[m\]\w"
+PS1="\[\e[1;30m\]\h \[\e[0m\]\w"
 
 function _git_prompt() {
   local git_status="$(__git_ps1 '%s' | sed 's/\(.*\) /\1/')"
   if [ "$git_status" ]; then
     if ( echo "$git_status" | grep -q '[\+\*]%\?$' ); then
-        local color="\[\e[31m\]"
+        echo -en $'\001\e[31m\002'
     elif ( echo "$git_status" | grep -q '%$' ); then
-        local color="\[\e[33m\]"
+        echo -en $'\001\e[33m\002'
     else
-        local color="\[\e[32m\]"
+        echo -en $'\001\e[32m\002'
     fi
-    echo -en "$color ⎇ $git_status\[\e[m\]"
+    echo -n " $git_status"
+    echo -en $'\001\e[0m\002'
   fi
 }
 
@@ -22,9 +23,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   export GIT_PS1_SHOWDIRTYSTATE=true
   export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-  PS1="$PS1$(_git_prompt)"
+  PS1="$PS1\$(_git_prompt)"
 fi
 
-PS1="$PS1\[\e[0;37m\]\$\[\e[m\] "
+PS1="$PS1\[\e[0;37m\]\$\[\e[0m\] "
 
 source ~/.profile
