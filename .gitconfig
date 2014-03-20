@@ -15,5 +15,5 @@
     lsg = log --branches --all --pretty=format:"%C(auto)%h\\ (%ad)\\ %Cblue<%an>%x09%Creset%s%C(auto)%d" --decorate --date=relative --graph
     incoming = "!git remote update -p; git log ..@{u}"
     outgoing = log @{u}..
-    showtool = "!sh -c 'git difftool "$0~1" "$0"'"
+    showtool = "!sh -c 'git --no-pager show --stat "$0"; git difftool "$0~1" "$0"'"
     #diffall = "!mvim -p $(git diff --name-only $*) -c \"tabdo Gdiff $*\" #"
