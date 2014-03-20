@@ -249,6 +249,8 @@ nnoremap <silent><leader>P :cpf<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gW :Gwrite!<CR>
+nnoremap <leader>gR :Gread!<CR>
 nnoremap d2 :diffget //2 \| diffup<CR>
 nnoremap d3 :diffget //3 \| diffup<CR>
 nnoremap du :diffup<CR>
