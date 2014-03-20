@@ -266,7 +266,7 @@ function! FgrepFunc(exp, ...)
   execute 'silent grep! -Ii "' . a:exp . '" ' . l:files
 endfunction
 
-"command -nargs=+ Rgrep execute 'silent grep! -RIi --exclude-dir={node_modules,.git,.hg,.svn} <args>' | copen
+command -nargs=+ Rgrep execute 'silent grep! -RIi --exclude-dir={node_modules,.git,.hg,.svn} <args>' | copen
 command -nargs=+ Fgrep call FgrepFunc(<f-args>) | copen
 nnoremap <silent><leader>f :call FgrepFunc(substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', ''))<CR>:copen<CR>
 
