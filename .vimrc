@@ -264,7 +264,7 @@ au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
 function! FgrepFunc(exp, ...)
-  let l:files = join(g:fuf_fast_find((a:0 > 0 ? a:1 : '.'), g:fuf_file_exclude), ' ')
+  let l:files = join(g:FufFastFind((a:0 > 0 ? a:1 : '.'), g:fuf_file_exclude), ' ')
   execute 'silent grep! -Ii "' . a:exp . '" ' . l:files
 endfunction
 
