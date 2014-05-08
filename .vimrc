@@ -141,6 +141,8 @@ set viminfo=%,!,'50,\"100,:100,n~/.viminfo
 " Use mouse in terminal
 set mouse=a
 set mousemodel=extend
+" Files to ignore
+set wildignore+=node_modules,.git,.hg,.svn
 
 " Airline config
 if !exists('g:airline_symbols')
@@ -309,14 +311,14 @@ au BufRead,BufNewFile *.coffeete set ft=html
 au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
-function! FgrepFunc(exp, ...)
-  let l:files = join(g:FufFastFind((a:0 > 0 ? a:1 : '.'), g:fuf_file_exclude), ' ')
-  execute 'silent grep! -Ii "' . a:exp . '" ' . l:files
+function GreprSelection()
+  exe ':Grepr "' . substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '') . '"'
 endfunction
 
-command -nargs=+ Grep execute 'silent grep! -Ii --exclude-dir={' . wildignore . '} <args>' | copen
-command -nargs=+ Rgrep execute 'silent grep! -RIi --exclude-dir={node_modules,.git,.hg,.svn} <args>' | copen
-command -nargs=+ Fgrep call FgrepFunc(<f-args>) | copen
-nnoremap <silent><leader>f :call FgrepFunc(substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', ''))<CR>:copen<CR>
+command -nargs=+ Grep   execute 'silent grep! -I --exclude-dir={' . &wildignore . '} <args>' | copen
+command -nargs=+ Grepi  execute 'silent Grep -i <args>' | copen
+command -nargs=+ Grepr  execute 'silent Grep -R <args> .' | copen
+command -nargs=+ Grepir execute 'silent Grep -iR <args> .' | copen
+nnoremap <silent><leader>f :call GreprSelection() \| copen<CR>
 
 let g:localvimrc_persistent = 1
