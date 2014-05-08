@@ -91,7 +91,7 @@ set background=dark
 colorscheme solarized
 
 hi SignColumn ctermbg=8
-hi link LineHighlight CursorLine
+"hi link LineHighlight ErrorMsg
 " Set sign column color to same as line numbers
 hi! link SignColumn LineNr
 
@@ -266,30 +266,27 @@ vnoremap <silent># :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype(
 "nnoremap <silent><leader>m :execute 'SearchBuffers ' . getreg('/')<CR>:let @/=''<CR>
 "nnoremap <silent><leader>c :SearchBuffersReset<CR>:let @/=''<CR>
 
+nnoremap <silent><leader>c :cc<CR>
 nnoremap <silent><leader>n :cn<CR>
 nnoremap <silent><leader>p :cp<CR>
 nnoremap <silent><leader>N :cnf<CR>
 nnoremap <silent><leader>P :cpf<CR>
 
 " ,l will highlight the current line
-function! HighlightLineFunc()
-  execute 'match LineHighlight /\%'.line('.').'l/'
-endfunction
-
-command HighlightLine call HighlightLineFunc()
-nnoremap <silent> <leader>l ml:call HighlightLineFunc()<CR>
+"command HighlightLine execute 'match LineHighlight /\%'.line('.').'l/'
+"nnoremap <silent> <leader>l ml:HighlightLine<CR>
 
 function! QuickFixPreview()
   if &buftype ==# 'quickfix'
-    " TODO: Fix the emulation of hitting enter key
-    execute "\<cr>"
-    call HighlightLineFunc()
+    exe "normal \<CR>"
+    "exe "HighlightLine"
     wincmd p
   endif
 endfunction
 
-" TODO: Fix the emulation of hitting enter key
-"nnoremap <silent><Space> :call QuickFixPreview()<CR>
+" Pressing spacebar in quickfix window will preview and not move the cursor to
+" the target line
+nnoremap <silent><Space> :call QuickFixPreview()<CR>
 
 "nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 
