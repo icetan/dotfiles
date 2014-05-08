@@ -13,6 +13,8 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
+Bundle 'gitignore'
+
 " Status line
 Bundle 'bling/vim-airline'
 
@@ -24,10 +26,11 @@ Bundle 'embear/vim-localvimrc'
 "Bundle 'cd-hook'
 
 " Fuzzy Finder
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'icetan/vim-fuf-fast'
-Bundle 'icetan/vim-fuf-ignore'
+"Bundle 'L9'
+"Bundle 'FuzzyFinder'
+"Bundle 'icetan/vim-fuf-fast'
+"Bundle 'icetan/vim-fuf-ignore'
+Bundle 'kien/ctrlp.vim'
 
 " VCS
 Bundle 'tpope/vim-fugitive'
@@ -85,7 +88,11 @@ endif
 
 set background=dark
 colorscheme solarized
-highlight SignColumn ctermbg=8
+
+hi SignColumn ctermbg=8
+hi link LineHighlight CursorLine
+" Set sign column color to same as line numbers
+hi! link SignColumn LineNr
 
 " UTF-8
 scriptencoding utf-8
@@ -100,6 +107,7 @@ set incsearch                         " Search-as-you-type.
 set ignorecase                        " Case-insensitive…
 set smartcase                         " …unless phrase includes uppercase.
 " UI
+set cursorline
 set fillchars=vert:\                  " No pipes in vertical split separators.
 set listchars=nbsp:·,extends:»,tab:▸·,trail:·
 set list!                             " Show invisibles.
@@ -179,7 +187,7 @@ endif
 " Key mappings
 let mapleader = ","
 set pastetoggle=<F4>
-map <F3> :let @/ = ""<CR>
+map <F3> :noh<CR>:match<CR>
 map <C-W>d :bp\|bd #<CR>
 map <C-W>n :vert new<CR>
 " Make Y consistent with C and D - yank to end of line, not full line.
@@ -192,39 +200,54 @@ vnoremap > >gv
 vnoremap < <gv
 
 " CtrlP
-"map <C-T>f :CtrlPCurFile<CR>
-"map <C-T>d :CtrlPDir<CR>
-"map <C-T>b :CtrlPBuffer<CR>
-"map <C-T>o :CtrlPBookmarkDir<CR>
-"map <C-T>a :CtrlPBookmarkDirAdd<CR>
-"map <C-T>r :CtrlPClearAllCaches<CR>
-"map <C-T>t :CtrlPBufTag<CR>
-"map <C-T>T :CtrlPBufTagAll<CR>
+let s:auto_clear_since = 0
+
+function AutoClearCacheCtrlPFunc()
+  if has('unix')
+    let curtime = strftime('%s')
+    let since = curtime - s:auto_clear_since
+    let cmd_ = 'find -type d -ctime -' . since . 's ' . getcwd()
+    if !empty(system(cmd_))
+      let s:auto_clear_since = curtime
+      exe 'CtrlPClearCache'
+    endif
+  "elseif s:OS ==# 'win'
+  "  return 'dir ' . a:dir
+  endif
+endfunction
+command CtrlPAutoClearCache call AutoClearCacheCtrlPFunc() | exe 'CtrlP'
+
+" CtrlP mappings
+let g:ctrlp_cmd = 'CtrlPAutoClearCache'
+map <C-T>f :CtrlPCurFile<CR>
+map <C-T>d :CtrlPDir<CR>
+map <C-T>b :CtrlPBuffer<CR>
+map <C-T>o :CtrlPBookmarkDir<CR>
+map <C-T>a :CtrlPBookmarkDirAdd<CR>
+map <C-T>r :CtrlPClearAllCaches<CR>
+map <C-T>t :CtrlPBufTag<CR>
 
 " FuzzyFinder
-let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|sw[po]|class|jpeg|jpg|gif|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
-
-let g:fuf_buffer_keyDelete = '<c-w>'
-let g:fuf_bookmarkdir_keyDelete = '<c-w>'
-map <C-P>  :FufFast<CR>
-map <C-T>t :FufFast<CR>
-map <C-T>d :FufDir<CR>
-map <C-T>b :FufBuffer<CR>
-map <C-T>o :FufBookmarkDir<CR>
-map <C-T>a :FufBookmarkDirAdd<CR>
-map <C-T>r :FufIgnoreUpdate<CR>
+"let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|sw[po]|class|jpeg|jpg|gif|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
+"
+"let g:fuf_buffer_keyDelete = '<c-w>'
+"let g:fuf_bookmarkdir_keyDelete = '<c-w>'
+"map <C-P>  :FufFast<CR>
+"map <C-T>t :FufFast<CR>
+"map <C-T>d :FufDir<CR>
+"map <C-T>b :FufBuffer<CR>
+"map <C-T>o :FufBookmarkDir<CR>
+"map <C-T>a :FufBookmarkDirAdd<CR>
+"map <C-T>r :FufIgnoreUpdate<CR>
 
 "autocmd User chdir FufIgnoreUpdate   " Depends on cd-hook
-call fuf#ignore#Update()
+"call fuf#ignore#Update()
 
 " Syntastic
 "map <C-S>s :up<CR>:SyntasticCheck<CR>
 "map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
 
 nnoremap <silent><leader>l :JSHint<CR>
-
-" Set sign column color to same as line numbers
-hi! link SignColumn LineNr
 
 " Highlight selected text (visual mode), forwards and `#` only higlights
 " witouth jumping.
@@ -242,6 +265,26 @@ nnoremap <silent><leader>n :cn<CR>
 nnoremap <silent><leader>p :cp<CR>
 nnoremap <silent><leader>N :cnf<CR>
 nnoremap <silent><leader>P :cpf<CR>
+
+" ,l will highlight the current line
+function! HighlightLineFunc()
+  execute 'match LineHighlight /\%'.line('.').'l/'
+endfunction
+
+command HighlightLine call HighlightLineFunc()
+nnoremap <silent> <leader>l ml:call HighlightLineFunc()<CR>
+
+function! QuickFixPreview()
+  if &buftype ==# 'quickfix'
+    " TODO: Fix the emulation of hitting enter key
+    execute "\<cr>"
+    call HighlightLineFunc()
+    wincmd p
+  endif
+endfunction
+
+" TODO: Fix the emulation of hitting enter key
+"nnoremap <silent><Space> :call QuickFixPreview()<CR>
 
 "nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 
@@ -268,6 +311,7 @@ function! FgrepFunc(exp, ...)
   execute 'silent grep! -Ii "' . a:exp . '" ' . l:files
 endfunction
 
+command -nargs=+ Grep execute 'silent grep! -Ii --exclude-dir={' . wildignore . '} <args>' | copen
 command -nargs=+ Rgrep execute 'silent grep! -RIi --exclude-dir={node_modules,.git,.hg,.svn} <args>' | copen
 command -nargs=+ Fgrep call FgrepFunc(<f-args>) | copen
 nnoremap <silent><leader>f :call FgrepFunc(substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', ''))<CR>:copen<CR>
