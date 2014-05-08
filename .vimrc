@@ -203,7 +203,7 @@ vnoremap < <gv
 " CtrlP
 let s:auto_clear_since = 0
 
-function AutoClearCacheCtrlPFunc()
+function AutoCtrlPClearCacheFunc()
   if has('unix')
     let curtime = strftime('%s')
     let since = curtime - s:auto_clear_since
@@ -212,14 +212,16 @@ function AutoClearCacheCtrlPFunc()
       let s:auto_clear_since = curtime
       exe 'CtrlPClearCache'
     endif
+  " TODO: Windows support
   "elseif s:OS ==# 'win'
   "  return 'dir ' . a:dir
   endif
 endfunction
-command CtrlPAutoClearCache call AutoClearCacheCtrlPFunc() | exe 'CtrlP'
+command AutoCtrlPClearCache call AutoCtrlPClearCacheFunc() | exe 'CtrlP'
 
 " CtrlP mappings
-let g:ctrlp_cmd = 'CtrlPAutoClearCache'
+let g:ctrlp_cmd = 'silent AutoCtrlPClearCache'
+let g:ctrlp_show_hidden = 1
 map <C-T>f :CtrlPCurFile<CR>
 map <C-T>d :CtrlPDir<CR>
 map <C-T>b :CtrlPBuffer<CR>
