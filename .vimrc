@@ -50,6 +50,7 @@ Bundle 'mintplant/vim-literate-coffeescript'
 Bundle 'tpope/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'ap/vim-css-color'
+Bundle 'derekwyatt/vim-scala'
 
 Bundle 'ZeusTheTrueGod/vim-format-js'
 
