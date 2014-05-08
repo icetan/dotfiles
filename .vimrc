@@ -136,6 +136,8 @@ set noswapfile
 set nowritebackup
 " Always forward slashes
 set shellslash
+" Don't print stuff from shell
+set shellpipe=2>&1>
 " Save editor state to ~/.viminfo
 set viminfo=%,!,'50,\"100,:100,n~/.viminfo
 " Use mouse in terminal
@@ -309,13 +311,13 @@ au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
 function GreprSelection()
-  exe ':Grepr "' . substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '') . '"'
+  exe 'Grepr "' . substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '') . '"'
 endfunction
 
 command -nargs=+ Grep   execute 'silent grep! -I --exclude-dir={' . &wildignore . '} <args>' | copen
-command -nargs=+ Grepi  execute 'silent Grep -i <args>' | copen
-command -nargs=+ Grepr  execute 'silent Grep -R <args> .' | copen
-command -nargs=+ Grepir execute 'silent Grep -iR <args> .' | copen
+command -nargs=+ Grepi  execute 'Grep -i <args>' | copen
+command -nargs=+ Grepr  execute 'Grep -R <args> .' | copen
+command -nargs=+ Grepir execute 'Grep -iR <args> .' | copen
 nnoremap <silent><leader>f :call GreprSelection() \| copen<CR>
 
 let g:localvimrc_persistent = 1
