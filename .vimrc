@@ -13,7 +13,8 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
-Bundle 'gitignore'
+" Asynchronous commands yay!
+Bundle 'pydave/AsyncCommand'
 
 " Status line
 Bundle 'bling/vim-airline'
@@ -35,6 +36,7 @@ Bundle 'kien/ctrlp.vim'
 " VCS
 Bundle 'tpope/vim-fugitive'
 Bundle 'mhinz/vim-signify'
+Bundle 'gitignore'
 
 " Movement
 Bundle 'jayflo/vim-skip'
@@ -309,14 +311,25 @@ au BufRead,BufNewFile *.coffeete set ft=html
 au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
-function GreprSelection()
+function! GrepFunc(...)
+  let args_ = '-I --exclude-dir={' . &wildignore . '} ' . join(a:000, ' ')
+  if (empty(v:servername))
+    exe 'silent! grep! ' . args_
+    copen
+  else
+    exe 'AsyncGrep ' . args_
+    echo 'Greping...'
+  endif
+endfunction
+
+function! GreprSelection()
   exe 'Grepr "' . substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '') . '"'
 endfunction
 
-command -nargs=+ Grep   execute 'silent grep! -I --exclude-dir={' . &wildignore . '} <args>' | copen
-command -nargs=+ Grepi  execute 'Grep -i <args>' | copen
-command -nargs=+ Grepr  execute 'Grep -R <args> .' | copen
-command -nargs=+ Grepir execute 'Grep -iR <args> .' | copen
-nnoremap <silent><leader>f :call GreprSelection() \| copen<CR>
+command -nargs=+ Grep   call GrepFunc(<f-args>)
+command -nargs=+ Grepi  execute 'Grep -i <args>'
+command -nargs=+ Grepr  execute 'Grep -R <args> .'
+command -nargs=+ Grepir execute 'Grep -iR <args> .'
+nnoremap <silent><leader>f :call GreprSelection()<CR>
 
 let g:localvimrc_persistent = 1
