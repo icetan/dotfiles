@@ -205,34 +205,33 @@ vnoremap > >gv
 vnoremap < <gv
 
 " CtrlP
-let s:auto_clear_since = 0
-
-function AutoCtrlPClearCacheFunc()
-  if has('unix')
-    let curtime = strftime('%s')
-    let since = curtime - s:auto_clear_since
-    let cmd_ = 'find -type d -ctime -' . since . 's ' . getcwd()
-    if !empty(system(cmd_))
-      let s:auto_clear_since = curtime
-      exe 'CtrlPClearCache'
-    endif
-  " TODO: Windows support
-  "elseif s:OS ==# 'win'
-  "  return 'dir ' . a:dir
-  endif
-endfunction
-command AutoCtrlPClearCache call AutoCtrlPClearCacheFunc() | exe 'CtrlP'
+let g:ctrlp_show_hidden = 1
 
 " CtrlP mappings
-let g:ctrlp_cmd = 'silent AutoCtrlPClearCache'
-let g:ctrlp_show_hidden = 1
 map <C-T>f :CtrlPCurFile<CR>
 map <C-T>d :CtrlPDir<CR>
 map <C-T>b :CtrlPBuffer<CR>
 map <C-T>o :CtrlPBookmarkDir<CR>
 map <C-T>a :CtrlPBookmarkDirAdd<CR>
-map <C-T>r :CtrlPClearAllCaches<CR>
+map <C-T>r :CtrlPClearCache<CR>
 map <C-T>t :CtrlPBufTag<CR>
+
+"let s:auto_since = {}
+"function AutoCtrlPClearCacheFunc()
+"  if has('unix')
+"    let cwd_ = getcwd()
+"    let curtime = strftime('%s')
+"    if !has_key(s:auto_since, cwd_) || !empty(system('find ' . cwd_ . ' -type d -ctime -' . (curtime - s:auto_since[cwd_]) . 's'))
+"      let s:auto_since[cwd_] = curtime
+"      exe 'CtrlPClearCache'
+"    endif
+"  " TODO: Windows support
+"  "elseif s:OS ==# 'win'
+"  "  return 'dir ' . a:dir
+"  endif
+"endfunction
+"command AutoCtrlPClearCache call AutoCtrlPClearCacheFunc() | exe 'CtrlP'
+"let g:ctrlp_cmd = 'AutoCtrlPClearCache'
 
 " FuzzyFinder
 "let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|sw[po]|class|jpeg|jpg|gif|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
