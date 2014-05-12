@@ -146,7 +146,7 @@ set viminfo=%,!,'50,\"100,:100,n~/.viminfo
 set mouse=a
 set mousemodel=extend
 " Files to ignore
-set wildignore+=node_modules,.git,.hg,.svn
+set wildignore+=.git/*,.hg/*,.svn/*
 
 " Airline config
 if !exists('g:airline_symbols')
@@ -313,10 +313,13 @@ au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
 function! GrepFunc(...)
-  let exfiles = map(split(&wildignore, ','), "substitute(v:val, '^'.getcwd(), '', '')")
+  let exfiles = map(split(&wildignore, ','), "'*/'.v:val")
   let exdirs = map(filter(copy(exfiles), "v:val=~'\\/\\*$'"), "v:val[0:-3]")
   call filter(exfiles, "v:val!~'\\/\\*$'")
-  let args_ = '-I --exclude={.'.join(exfiles, ',.').'} --exclude-dir={.'.join(exdirs,',.').'} ' . join(a:000, ' ')
+  let args_ = '-I '
+  if len(exfiles) | let args_ .= '--exclude={'.join(exfiles, ',').'} ' | endif
+  if len(exdirs) | let args_ .= '--exclude-dir={'.join(exdirs,',').'} ' | endif
+  let args_ .= join(a:000, ' ')
   if (empty(v:servername))
     exe 'silent! grep! ' . args_
     copen
@@ -337,3 +340,6 @@ command -nargs=+ Grepir execute 'Grep -iR <args> .'
 nnoremap <silent><leader>f :call GreprSelection()<CR>
 
 let g:localvimrc_persistent = 1
+
+" Add global git ignore to wildignore
+autocmd VimEnter * WildignoreFromGitignore ~ .gitignore_global
