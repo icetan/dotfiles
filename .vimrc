@@ -36,7 +36,7 @@ Bundle 'kien/ctrlp.vim'
 " VCS
 Bundle 'tpope/vim-fugitive'
 Bundle 'mhinz/vim-signify'
-Bundle 'gitignore'
+Bundle 'icetan/gitignore'
 
 " Movement
 Bundle 'jayflo/vim-skip'
@@ -313,7 +313,10 @@ au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
 function! GrepFunc(...)
-  let args_ = '-I --exclude-dir={' . &wildignore . '} ' . join(a:000, ' ')
+  let exfiles = map(split(&wildignore, ','), "substitute(v:val, '^'.getcwd(), '', '')")
+  let exdirs = map(filter(copy(exfiles), "v:val=~'\\/\\*$'"), "v:val[0:-3]")
+  call filter(exfiles, "v:val!~'\\/\\*$'")
+  let args_ = '-I --exclude={.'.join(exfiles, ',.').'} --exclude-dir={.'.join(exdirs,',.').'} ' . join(a:000, ' ')
   if (empty(v:servername))
     exe 'silent! grep! ' . args_
     copen
