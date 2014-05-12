@@ -211,6 +211,7 @@ let g:ctrlp_show_hidden = 1
 
 " CtrlP mappings
 map <C-T>f :CtrlPCurFile<CR>
+map <C-T>m :CtrlPMRUFiles<CR>
 map <C-T>d :CtrlPDir<CR>
 map <C-T>b :CtrlPBuffer<CR>
 map <C-T>o :CtrlPBookmarkDir<CR>
