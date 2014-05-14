@@ -194,15 +194,31 @@ endif
 
 " Key mappings
 let mapleader = ","
+
 set pastetoggle=<F4>
+
+" Clear highlights
 map <F3> :noh<CR>:match<CR>
+
+" Close current buffer
 map <C-W>d :bp\|bd #<CR>
+
+" Create an empty buffer in verical split window
 map <C-W>n :vert new<CR>
+
+" Simplified window navigation
+map <C-H> <C-W>h
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-l> <C-W>l
+
 " Make Y consistent with C and D - yank to end of line, not full line.
 nnoremap Y y$
+
 " Tab/shift-tab to indent/outdent in visual mode.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+
 " Keep selection when indenting/outdenting.
 vnoremap > >gv
 vnoremap < <gv
