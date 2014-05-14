@@ -146,7 +146,7 @@ set viminfo=%,!,'50,\"100,:100,n~/.viminfo
 set mouse=a
 set mousemodel=extend
 " Files to ignore
-set wildignore+=.git/*,.hg/*,.svn/*
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 
 " Airline config
 if !exists('g:airline_symbols')
@@ -313,9 +313,9 @@ au BufRead,BufNewFile *.ino set ft=cpp
 
 " Nicer grep
 function! GrepFunc(...)
-  let exfiles = map(split(&wildignore, ','), "'*/'.v:val")
-  let exdirs = map(filter(copy(exfiles), "v:val=~'\\/\\*$'"), "v:val[0:-3]")
-  call filter(exfiles, "v:val!~'\\/\\*$'")
+  let exfiles = split(&wildignore, ',')
+  let exdirs = map(filter(copy(exfiles), "v:val=~'\\/\\*\\?$'"), "substitute(v:val, '^\\*\\/\\|\\/\\*\\?$', '', 'g')")
+  call filter(exfiles, "v:val!~'\\/\\*\\?$'")
   let args_ = '-I '
   if len(exfiles) | let args_ .= '--exclude={'.join(exfiles, ',').'} ' | endif
   if len(exdirs) | let args_ .= '--exclude-dir={'.join(exdirs,',').'} ' | endif
@@ -330,13 +330,13 @@ function! GrepFunc(...)
 endfunction
 
 function! GreprSelection()
-  exe 'Grepr "' . substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '') . '"'
+  call GrepFunc('-R "'.substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '').'" .')
 endfunction
 
 command -nargs=+ Grep   call GrepFunc(<f-args>)
 command -nargs=+ Grepi  execute 'Grep -i <args>'
-command -nargs=+ Grepr  execute 'Grep -R <args> .'
-command -nargs=+ Grepir execute 'Grep -iR <args> .'
+command -nargs=+ Grepr  execute 'Grep -R <args>'
+command -nargs=+ Grepir execute 'Grep -iR <args>'
 nnoremap <silent><leader>f :call GreprSelection()<CR>
 
 let g:localvimrc_persistent = 1
