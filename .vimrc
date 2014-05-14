@@ -21,6 +21,7 @@ Bundle 'bling/vim-airline'
 
 " Zen
 Bundle 'mattn/emmet-vim'
+Bundle 'tpope/vim-surround'
 
 " .lvimrc files for project local editor settings
 Bundle 'embear/vim-localvimrc'
