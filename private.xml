@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<root>
+  <item>
+    <name>NumLock to Delete</name>
+    <identifier>private.numlock_to_del</identifier>
+    <autogen>__KeyToKey__ KeyCode::PC_KEYPAD_NUMLOCK, KeyCode::PC_DEL</autogen>
+  </item>
+
+  <item>
+    <name>NumPad Media Keys</name>
+    <identifier>private.numpad_media_keys</identifier>
+    <autogen>__KeyToKey__ KeyCode::KEYPAD_MINUS, KeyCode::VK_CONSUMERKEY_VOLUME_DOWN</autogen>
+    <autogen>__KeyToKey__ KeyCode::KEYPAD_PLUS, KeyCode::VK_CONSUMERKEY_VOLUME_UP</autogen>
+    <autogen>__KeyToKey__ KeyCode::KEYPAD_MULTIPLY, KeyCode::VK_CONSUMERKEY_MUSIC_PLAY</autogen>
+    <!--
+    <autogen>__KeyToKey__ KeyCode::KEYPAD_MULTIPLY, KeyCode::VK_CONSUMERKEY_VOLUME_MUTE</autogen>
+    <autogen>__KeyToKey__ KeyCode::ENTER, KeyCode::VK_CONSUMERKEY_MUSIC_PLAY</autogen>
+    -->
+    <autogen>__KeyToKey__ KeyCode::KEYPAD_EQUAL, KeyCode::VK_CONSUMERKEY_MUSIC_PREV</autogen>
+    <autogen>__KeyToKey__ KeyCode::KEYPAD_SLASH, KeyCode::VK_CONSUMERKEY_MUSIC_NEXT</autogen>
+  </item>
+
+  <item>
+    <name>Swedish Section(§) to Less Than(&lt;)</name>
+    <identifier>private.swedish_section_to_less_than</identifier>
+
+    <autogen>--KeyToKey-- KeyCode::SWEDISH_SECTION, KeyCode::SWEDISH_LESS_THAN</autogen>
+  </item>
+</root>
