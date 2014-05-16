@@ -21,9 +21,10 @@
   </item>
 
   <item>
-    <name>Swedish Section(§) to Less Than(&lt;)</name>
+    <name>Switch Swedish Section(§) with Less-Than(&lt;) (usefull with Pocker 2)</name>
     <identifier>private.swedish_section_to_less_than</identifier>
 
     <autogen>--KeyToKey-- KeyCode::SWEDISH_SECTION, KeyCode::SWEDISH_LESS_THAN</autogen>
+    <autogen>--KeyToKey-- KeyCode::SWEDISH_LESS_THAN, KeyCode::SWEDISH_SECTION</autogen>
   </item>
 </root>
