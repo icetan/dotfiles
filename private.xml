@@ -61,5 +61,9 @@
     <autogen>__KeyToKey__ KeyCode::BACKQUOTE, KeyCode::SWEDISH_SECTION</autogen>
     <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode::OPTION_L</autogen>
     <autogen>__KeyToKey__ KeyCode::OPTION_L, KeyCode::COMMAND_L</autogen>
+
+    <autogen>__KeyToKey__ KeyCode::COMMAND_R, KeyCode::CONTROL_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::CONTROL_R, KeyCode::VK_NONE</autogen>
+    <autogen>__KeyToKey__ KeyCode::CONTROL_L, KeyCode::VK_NONE</autogen>
   </item>
 </root>
