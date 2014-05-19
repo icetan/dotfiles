@@ -52,7 +52,7 @@
 
   <item>
     <name>Emulate HHKB2 for Poker Pro S</name>
-    <identifier>private.poker_2_emu_hhkb2</identifier>
+    <identifier>private.poker2_emu_hhkb2</identifier>
     <device_only>DeviceVendor::HENG_YU_TECHNOLOGY, DeviceProduct::POKER_PRO_S</device_only>
     <inputsource_only>LANG_US</inputsource_only>
 
@@ -68,13 +68,17 @@
       <autogen>__KeyToKey__ KeyCode::RawValue::0x0a, KeyCode::SHIFT_L</autogen>
     </!-->
 
-    <!-- Swap left Option with left Command -->
-    <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode::OPTION_L</autogen>
-    <autogen>__KeyToKey__ KeyCode::OPTION_L, KeyCode::COMMAND_L</autogen>
-
     <!-- Disable Control -->
     <autogen>__KeyToKey__ KeyCode::COMMAND_R, KeyCode::CONTROL_L</autogen>
     <autogen>__KeyToKey__ KeyCode::CONTROL_R, KeyCode::VK_NONE</autogen>
     <autogen>__KeyToKey__ KeyCode::CONTROL_L, KeyCode::VK_NONE</autogen>
+  </item>
+
+  <item>
+    <name>Swap left Option with left Command only for Poker Pro S</name>
+    <identifier>private.swap_opt_l_cmd_l_for_poker2</identifier>
+    <device_only>DeviceVendor::HENG_YU_TECHNOLOGY, DeviceProduct::POKER_PRO_S</device_only>
+    <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode::OPTION_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::OPTION_L, KeyCode::COMMAND_L</autogen>
   </item>
 </root>
