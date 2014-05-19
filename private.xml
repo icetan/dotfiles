@@ -10,6 +10,11 @@
     <productid>0x0611</productid>
   </deviceproductdef>
 
+  <inputsourcedef>
+    <name>LANG_US</name>
+    <inputsourceid_prefix>com.apple.keylayout.US</inputsourceid_prefix>
+  </inputsourcedef>
+
   <item>
     <name>NumLock to Delete</name>
     <identifier>private.numlock_to_del</identifier>
@@ -49,19 +54,25 @@
     <name>Emulate HHKB2 for Poker Pro S</name>
     <identifier>private.poker_2_emu_hhkb2</identifier>
     <device_only>DeviceVendor::HENG_YU_TECHNOLOGY, DeviceProduct::POKER_PRO_S</device_only>
-    <!--
-      <autogen>__KeyToKey__ KeyCode::RETURN, ModifierFlag::SHIFT_L, KeyCode::FORWARD_DELETE</autogen>
-    -->
+    <inputsource_only>LANG_US</inputsource_only>
+
     <autogen>__KeyToKey__ KeyCode::ENTER, KeyCode::FORWARD_DELETE</autogen>
     <autogen>__KeyToKey__ KeyCode::RETURN, KeyCode::DELETE</autogen>
     <autogen>__KeyToKey__ KeyCode::DELETE, KeyCode::BACKSLASH</autogen>
     <autogen>__KeyToKey__ KeyCode::FORWARD_DELETE, KeyCode::BACKQUOTE</autogen>
     <autogen>__KeyToKey__ KeyCode::BACKSLASH, KeyCode::RETURN</autogen>
-    <autogen>__KeyToKey__ KeyCode::SWEDISH_SECTION, KeyCode::SHIFT_L</autogen>
-    <autogen>__KeyToKey__ KeyCode::BACKQUOTE, KeyCode::SWEDISH_SECTION</autogen>
+
+    <autogen>__KeyToKey__ KeyCode::BACKQUOTE, KeyCode::SHIFT_L</autogen>
+    <!-->
+      <autogen>__KeyToKey__ KeyCode::SWEDISH_SECTION, KeyCode::SHIFT_L</autogen>
+      <autogen>__KeyToKey__ KeyCode::RawValue::0x0a, KeyCode::SHIFT_L</autogen>
+    </!-->
+
+    <!-- Swap left Option with left Command -->
     <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode::OPTION_L</autogen>
     <autogen>__KeyToKey__ KeyCode::OPTION_L, KeyCode::COMMAND_L</autogen>
 
+    <!-- Disable Control -->
     <autogen>__KeyToKey__ KeyCode::COMMAND_R, KeyCode::CONTROL_L</autogen>
     <autogen>__KeyToKey__ KeyCode::CONTROL_R, KeyCode::VK_NONE</autogen>
     <autogen>__KeyToKey__ KeyCode::CONTROL_L, KeyCode::VK_NONE</autogen>
