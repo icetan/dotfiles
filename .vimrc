@@ -58,6 +58,7 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'ZeusTheTrueGod/vim-format-js'
 
 " linters
+Bundle 'scrooloose/syntastic'
 Bundle 'walm/jshint.vim'
 
 " color schemes
@@ -188,10 +189,6 @@ if has("win32")
   set shellxquote=\"
 endif
 
-"let g:syntastic_mode_map = { 'mode': 'passive',
-"                           \ 'active_filetypes': ['ruby', 'php'],
-"                           \ 'passive_filetypes': ['puppet'] }
-
 " Key mappings
 let mapleader = ","
 
@@ -270,8 +267,8 @@ map <C-T>t :CtrlPBufTag<CR>
 "call fuf#ignore#Update()
 
 " Syntastic
-"map <C-S>s :up<CR>:SyntasticCheck<CR>
-"map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
+map <C-S>s :up<CR>:SyntasticCheck<CR>
+map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
 
 nnoremap <silent><leader>l :JSHint<CR>
 
