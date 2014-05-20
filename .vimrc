@@ -289,9 +289,12 @@ vnoremap <silent># :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype(
 
 nnoremap <silent><leader>c :cc<CR>
 nnoremap <silent><leader>n :cn<CR>
-nnoremap <silent><leader>p :cp<CR>
+nnoremap <silent><leader>m :cp<CR>
 nnoremap <silent><leader>N :cnf<CR>
-nnoremap <silent><leader>P :cpf<CR>
+nnoremap <silent><leader>M :cpf<CR>
+" TODO: this breaks <Enter> in quickfix window for unknown reasons
+"nnoremap <silent><C-N> :cn<CR>
+"nnoremap <silent><C-M> :cp<CR>
 
 " ,l will highlight the current line
 "command HighlightLine execute 'match LineHighlight /\%'.line('.').'l/'
