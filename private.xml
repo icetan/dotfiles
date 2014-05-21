@@ -77,4 +77,10 @@
     <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode::OPTION_L</autogen>
     <autogen>__KeyToKey__ KeyCode::OPTION_L, KeyCode::COMMAND_L</autogen>
   </item>
+
+  <item>
+    <name>Swap right Command with left Control</name>
+    <identifier>private.swap_cmd_r_ctrl_l</identifier>
+    <autogen>__KeyToKey__ KeyCode::COMMAND_R, KeyCode::CONTROL_L</autogen>
+  </item>
 </root>
