@@ -60,7 +60,6 @@ Bundle 'ZeusTheTrueGod/vim-format-js'
 
 " linters
 Bundle 'scrooloose/syntastic'
-Bundle 'walm/jshint.vim'
 
 " color schemes
 Bundle 'icetan/vim-colors-solarized'
@@ -270,8 +269,6 @@ map <C-T>t :CtrlPBufTag<CR>
 " Syntastic
 map <C-S>s :up<CR>:SyntasticCheck<CR>
 map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
-
-nnoremap <silent><leader>l :JSHint<CR>
 
 " Highlight selected text (visual mode), forwards and `#` only higlights
 " witouth jumping.
