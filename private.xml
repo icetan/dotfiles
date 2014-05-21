@@ -60,6 +60,8 @@
     <autogen>__KeyToKey__ KeyCode::DELETE, KeyCode::BACKSLASH</autogen>
     <autogen>__KeyToKey__ KeyCode::FORWARD_DELETE, KeyCode::BACKQUOTE</autogen>
     <autogen>__KeyToKey__ KeyCode::BACKSLASH, KeyCode::RETURN</autogen>
+
+    <autogen>__KeyToKey__ KeyCode::BACKQUOTE, KeyCode::SHIFT_L</autogen>
     <autogen>__KeyToKey__ KeyCode::RawValue::0x0a, KeyCode::SHIFT_L</autogen>
 
     <!-- Disable Control -->
