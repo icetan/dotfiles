@@ -41,6 +41,7 @@ Bundle 'icetan/gitignore'
 
 " Movement
 Bundle 'jayflo/vim-skip'
+Bundle 'tpope/vim-unimpaired'
 
 "Bundle 'nathanaelkane/vim-indent-guides'
 "Bundle 'bkad/CamelCaseMotion'
@@ -283,15 +284,6 @@ vnoremap <silent># :<C-U>let old_reg=getreg('"')<Bar>let old_regtype=getregtype(
 " TODO: Add multiple higlights
 "nnoremap <silent><leader>m :execute 'SearchBuffers ' . getreg('/')<CR>:let @/=''<CR>
 "nnoremap <silent><leader>c :SearchBuffersReset<CR>:let @/=''<CR>
-
-nnoremap <silent><leader>c :cc<CR>
-nnoremap <silent><leader>n :cn<CR>
-nnoremap <silent><leader>m :cp<CR>
-nnoremap <silent><leader>N :cnf<CR>
-nnoremap <silent><leader>M :cpf<CR>
-" TODO: this breaks <Enter> in quickfix window for unknown reasons
-"nnoremap <silent><C-N> :cn<CR>
-"nnoremap <silent><C-M> :cp<CR>
 
 " ,l will highlight the current line
 "command HighlightLine execute 'match LineHighlight /\%'.line('.').'l/'
