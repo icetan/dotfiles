@@ -208,6 +208,8 @@ map <C-H> <C-W>h
 map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-l> <C-W>l
+nmap - <C-W>-
+nmap + <C-W>+
 
 " Make Y consistent with C and D - yank to end of line, not full line.
 nnoremap Y y$
