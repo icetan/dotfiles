@@ -317,9 +317,13 @@ nnoremap do :windo diffoff<CR>
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
-" Autocommands
+" CoffeeTe tempate files
 au BufRead,BufNewFile *.coffeete set ft=html
+" Arduino source files
 au BufRead,BufNewFile *.ino set ft=cpp
+" TileMill and Carto files
+au BufRead,BufNewFile *.mss set ft=less
+au BufRead,BufNewFile *.mml set ft=javascript
 
 " Nicer grep
 function! GrepFunc(...)
