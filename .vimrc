@@ -273,6 +273,12 @@ map <C-T>t :CtrlPBufTag<CR>
 "call fuf#ignore#Update()
 
 " Syntastic
+
+" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '▲'
+highlight SyntasticWarningSign guifg=yellow
+
 map <C-S>s :up<CR>:SyntasticCheck<CR>
 map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
 
