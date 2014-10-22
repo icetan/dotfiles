@@ -312,11 +312,14 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gW :Gwrite!<CR>
 nnoremap <leader>gR :Gread!<CR>
-nnoremap d2 :diffget //2 \| diffup<CR>
-nnoremap d3 :diffget //3 \| diffup<CR>
+nnoremap df2 :diffget //2 \| diffup<CR>
+nnoremap df3 :diffget //3 \| diffup<CR>
+nnoremap d2 :diffget 2 \| diffup<CR>
+nnoremap d3 :diffget 3 \| diffup<CR>
+nnoremap d4 :diffget 4 \| diffup<CR>
 nnoremap du :diffup<CR>
 nnoremap dt :diffthis<CR>
-nnoremap do :windo diffoff<CR>
+nnoremap dq :windo diffoff<CR>
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
