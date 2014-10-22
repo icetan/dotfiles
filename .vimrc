@@ -22,6 +22,7 @@ Bundle 'bling/vim-airline'
 " Zen
 Bundle 'mattn/emmet-vim'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-eunuch'
 
 " .lvimrc files for project local editor settings
 Bundle 'embear/vim-localvimrc'
@@ -45,7 +46,6 @@ Bundle 'tpope/vim-unimpaired'
 
 "Bundle 'nathanaelkane/vim-indent-guides'
 "Bundle 'bkad/CamelCaseMotion'
-Bundle 'danro/rename.vim'
 
 " language support
 Bundle 'pangloss/vim-javascript'
