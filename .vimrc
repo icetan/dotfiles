@@ -214,6 +214,10 @@ nmap + <C-W>+
 " Make Y consistent with C and D - yank to end of line, not full line.
 nnoremap Y y$
 
+" Don't save overwriten text into default register when pasting in visual
+" mode.
+vnoremap p "_dP
+
 " Tab/shift-tab to indent/outdent in visual mode.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
