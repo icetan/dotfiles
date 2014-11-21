@@ -14,7 +14,9 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Asynchronous commands yay!
-Bundle 'pydave/AsyncCommand'
+if has('clientserver')
+  Bundle 'pydave/AsyncCommand'
+endif
 
 " Status line
 Bundle 'bling/vim-airline'
