@@ -9,6 +9,7 @@ bash:
 
 git:
 	ln -sf $(dotfiles) ~
+	touch ~/.gitconfig_user
 
 vim:
 	ln -sf $(dotfiles) ~
