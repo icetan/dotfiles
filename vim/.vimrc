@@ -1,92 +1,87 @@
-set nocompatible               " be iMproved
+" be iMproved
+set nocompatible
 
-""" Vundle setup start
-filetype off                   " required!
+" Automatically install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !mkdir -p ~/.vim/autoload
+  silent !curl -fLo ~/.vim/autoload/plug.vim
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" if you havent downloaded Vundle already:
-" $ git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
+" Begin declaration of plugins
+call plug#begin('~/.vim/plugged')
 
 " Asynchronous commands yay!
 if has('clientserver')
-  Bundle 'pydave/AsyncCommand'
+  Plug 'pydave/AsyncCommand'
 endif
 
 " Status line
-Bundle 'bling/vim-airline'
+Plug 'bling/vim-airline'
 
 " Zen
-Bundle 'mattn/emmet-vim'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-eunuch'
 
 " .lvimrc files for project local editor settings
-Bundle 'embear/vim-localvimrc'
-"Bundle 'cd-hook'
+Plug 'embear/vim-localvimrc'
+"Plug 'cd-hook'
 
 " Fuzzy Finder
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
-"Bundle 'icetan/vim-fuf-fast'
-"Bundle 'icetan/vim-fuf-ignore'
-Bundle 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
+" PyMatcher for CtrlP
+if has('python')
+  Plug 'FelikZ/ctrlp-py-matcher'
+endif
 
 " VCS
-Bundle 'tpope/vim-fugitive'
-Bundle 'mhinz/vim-signify'
-Bundle 'icetan/gitignore'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'icetan/gitignore'
 
 " Movement
-Bundle 'jayflo/vim-skip'
-Bundle 'tpope/vim-unimpaired'
+Plug 'jayflo/vim-skip'
+Plug 'tpope/vim-unimpaired'
 
-"Bundle 'nathanaelkane/vim-indent-guides'
-"Bundle 'bkad/CamelCaseMotion'
+"Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'bkad/CamelCaseMotion'
 
 " language support
-Bundle 'pangloss/vim-javascript'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'mintplant/vim-literate-coffeescript'
-Bundle 'tpope/vim-markdown'
-Bundle 'groenewege/vim-less'
-Bundle 'ap/vim-css-color'
-Bundle 'derekwyatt/vim-scala'
+" JavaScript
+Plug 'pangloss/vim-javascript',             { 'for': 'javascript' }
+Plug 'ZeusTheTrueGod/vim-format-js',        { 'for': 'javascript' }
+" CoffeeScript
+Plug 'kchmck/vim-coffee-script',            { 'for': 'coffee' }
+Plug 'mintplant/vim-literate-coffeescript', { 'for': 'litcoffee' }
+" Markdown
+Plug 'tpope/vim-markdown',                  { 'for': 'markdown' }
+" CSS / Less
+Plug 'groenewege/vim-less',                 { 'for': [ 'sass', 'less' ] }
+Plug 'ap/vim-css-color',                    { 'for': 'css' }
+" HTML
+Plug 'mattn/emmet-vim',                     { 'for': 'html' }
+" Scala
+Plug 'derekwyatt/vim-scala',                { 'for': 'scala' }
+" Haskell
+Plug 'bitc/vim-hdevtools',                  { 'for': 'haskell' }
+"Plug 'eagletmt/neco-ghc',                  { 'for': 'haskell' }
 
-Bundle 'ZeusTheTrueGod/vim-format-js'
+" Logs
+Plug 'dzeban/vim-log-syntax',               { 'for': 'log' }
 
 " linters
-Bundle 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 
 " color schemes
-Bundle 'icetan/vim-colors-solarized'
+Plug 'icetan/vim-colors-solarized'
 
-"Bundle 'MultipleSearch'
+"Plug 'MultipleSearch'
 
-""" non github repos
-"ex. Bundle 'git://git.wincent.com/command-t.git'
-" ...
+call plug#end()
 
-
-" required!
-filetype plugin indent on
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
-""" Vundle end
 
 """ My settings
-syntax on
 
 if has("gui_running")
   set guioptions=egmrt                " Hide toolbar in MacVim
@@ -229,6 +224,10 @@ vnoremap > >gv
 vnoremap < <gv
 
 " CtrlP
+if has('python')
+  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+endif
+
 let g:ctrlp_show_hidden = 1
 
 " CtrlP mappings
