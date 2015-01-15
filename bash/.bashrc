@@ -1,3 +1,5 @@
+. ~/.profile
+
 export CLICOLOR=1
 
 PS1="\[\e[1;30m\]\h \[\e[0m\]\w"
@@ -27,5 +29,3 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 
 PS1="$PS1\[\e[0;37m\]\$\[\e[0m\] "
-
-source ~/.profile
