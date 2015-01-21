@@ -273,6 +273,12 @@ map <C-T>t :CtrlPBufTag<CR>
 "autocmd User chdir FufIgnoreUpdate   " Depends on cd-hook
 "call fuf#ignore#Update()
 
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <F2> :HdevtoolsInfo<CR>
+au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
+au FileType haskell setlocal omnifunc=necoghc#omnifunc
+au FileType haskell setlocal formatprg=pointfree\ \"$(cat)\"
+
 " Syntastic
 
 " Better :sign interface symbols
