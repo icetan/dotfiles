@@ -357,15 +357,15 @@ function! GrepFunc(...)
   endif
 endfunction
 
-function! GreprSelection()
-  call GrepFunc('-R "'.substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '').'" .')
+function! GrepirSelection()
+  call GrepFunc('-iR "'.substitute(substitute(@/, '^\\<', '\\b', ''), '\\>$', '\\b', '').'" .')
 endfunction
 
 command -nargs=+ Grep   call GrepFunc(<f-args>)
 command -nargs=+ Grepi  execute 'Grep -i <args>'
 command -nargs=+ Grepr  execute 'Grep -R <args>'
 command -nargs=+ Grepir execute 'Grep -iR <args>'
-nnoremap <silent><leader>f :call GreprSelection()<CR>
+nnoremap <silent><leader>f :call GrepirSelection()<CR>
 
 let g:localvimrc_persistent = 1
 
