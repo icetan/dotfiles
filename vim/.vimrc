@@ -306,11 +306,11 @@ nnoremap <silent><Space> :call QuickFixPreview()<CR>
 "nnoremap <leader>m :silent %w !dr-markdown\|xargs open<CR>
 
 " Fugitive and diff key mappings
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gw :Gwrite<CR>
-nnoremap <leader>gr :Gread<CR>
-nnoremap <leader>gW :Gwrite!<CR>
-nnoremap <leader>gR :Gread!<CR>
+nnoremap <leader>gd :NoIgnore Gdiff<CR>
+nnoremap <leader>gw :NoIgnore Gwrite<CR>
+nnoremap <leader>gr :NoIgnore Gread<CR>
+nnoremap <leader>gW :NoIgnore Gwrite!<CR>
+nnoremap <leader>gR :NoIgnore Gread!<CR>
 nnoremap df2 :diffget //2 \| diffup<CR>
 nnoremap df3 :diffget //3 \| diffup<CR>
 nnoremap d2 :diffget 2 \| diffup<CR>
@@ -363,3 +363,26 @@ let g:localvimrc_persistent = 1
 
 " Add global git ignore to wildignore
 autocmd VimEnter * WildignoreFromGitignore ~ .gitignore_global
+
+function! WithoutWildignore(...)
+  let lastwildignore = &wildignore
+  let &wildignore = ''
+  execute(join(a:000, ' '))
+  let &wildignore = lastwildignore
+endfunction
+
+command -nargs=+ NoIgnore call WithoutWildignore(<f-args>)
+
+function! ToggleWildignore()
+  if (exists('s:lastwildignore'))
+    let &wildignore=s:lastwildignore
+    unlet s:lastwildignore
+  else
+    let s:lastwildignore=&wildignore
+    let &wildignore=''
+  endif
+endfunction
+
+command ToggleWildignore call ToggleWildignore()
+
+nnoremap <leader>i :ToggleWildignore<CR>
