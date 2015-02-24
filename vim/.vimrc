@@ -29,7 +29,8 @@ Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab'] }
 Plug 'embear/vim-localvimrc'
 "Plug 'cd-hook'
 
-" Fuzzy Finder
+" Project management
+Plug 'tpope/vim-vinegar'
 Plug 'kien/ctrlp.vim'
 " PyMatcher for CtrlP
 if has('python')
@@ -203,7 +204,7 @@ map <C-H> <C-W>h
 map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-l> <C-W>l
-nmap - <C-W>-
+"nmap - <C-W>-
 nmap + <C-W>+
 
 " Make Y consistent with C and D - yank to end of line, not full line.
