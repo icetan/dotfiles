@@ -331,6 +331,8 @@ au BufRead,BufNewFile *.ino set ft=cpp
 " TileMill and Carto files
 au BufRead,BufNewFile *.mss set ft=less
 au BufRead,BufNewFile *.mml set ft=javascript
+" Riot .tag files
+au BufRead,BufNewFile *.tag set ft=html
 
 " Nicer grep
 function! GrepFunc(...)
