@@ -45,6 +45,7 @@ Plug 'icetan/gitignore'
 " Movement
 Plug 'jayflo/vim-skip'
 Plug 'tpope/vim-unimpaired'
+Plug 'jeetsukumaran/vim-indentwise'
 
 " language support
 " JavaScript
