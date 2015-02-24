@@ -20,9 +20,10 @@ endif
 " Status line
 Plug 'bling/vim-airline'
 
-" Zen
+" Formatting
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
+Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab'] }
 
 " .lvimrc files for project local editor settings
 Plug 'embear/vim-localvimrc'
@@ -43,12 +44,6 @@ Plug 'icetan/gitignore'
 " Movement
 Plug 'jayflo/vim-skip'
 Plug 'tpope/vim-unimpaired'
-
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'bkad/CamelCaseMotion'
-
-" Formatting
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 " language support
 " JavaScript
