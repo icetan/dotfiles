@@ -5,6 +5,11 @@ export CLICOLOR=1
 PS1="\[\e[1;30m\]\h \[\e[0m\]\w"
 
 function _git_prompt() {
+  # If on mounted path do not check git status.
+  if ( pwd | grep -q '^/Volumes/' ); then
+    exit 1
+  fi
+
   local git_status="$(__git_ps1 '%s' | sed 's/\(.*\) /\1/')"
   if [ "$git_status" ]; then
     if ( echo "$git_status" | grep -q '[\+\*]%\?$' ); then
