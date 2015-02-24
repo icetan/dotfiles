@@ -47,6 +47,9 @@ Plug 'tpope/vim-unimpaired'
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'bkad/CamelCaseMotion'
 
+" Formatting
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+
 " language support
 " JavaScript
 Plug 'pangloss/vim-javascript',             { 'for': 'javascript' }
