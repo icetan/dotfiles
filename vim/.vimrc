@@ -256,19 +256,6 @@ map <C-T>t :CtrlPBufTag<CR>
 "command AutoCtrlPClearCache call AutoCtrlPClearCacheFunc() | exe 'CtrlP'
 "let g:ctrlp_cmd = 'AutoCtrlPClearCache'
 
-" FuzzyFinder
-"let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|sw[po]|class|jpeg|jpg|gif|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
-"
-"let g:fuf_buffer_keyDelete = '<c-w>'
-"let g:fuf_bookmarkdir_keyDelete = '<c-w>'
-"map <C-P>  :FufFast<CR>
-"map <C-T>t :FufFast<CR>
-"map <C-T>d :FufDir<CR>
-"map <C-T>b :FufBuffer<CR>
-"map <C-T>o :FufBookmarkDir<CR>
-"map <C-T>a :FufBookmarkDirAdd<CR>
-"map <C-T>r :FufIgnoreUpdate<CR>
-
 "autocmd User chdir FufIgnoreUpdate   " Depends on cd-hook
 "call fuf#ignore#Update()
 
