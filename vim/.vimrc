@@ -39,6 +39,7 @@ endif
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'icetan/gitignore'
+Plug 'phleet/vim-mercenary'
 
 " Movement
 Plug 'jayflo/vim-skip'
