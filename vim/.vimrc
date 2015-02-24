@@ -70,6 +70,8 @@ Plug 'derekwyatt/vim-scala',                { 'for': 'scala' }
 " Haskell
 Plug 'bitc/vim-hdevtools',                  { 'for': 'haskell' }
 "Plug 'eagletmt/neco-ghc',                  { 'for': 'haskell' }
+" Jade
+Plug 'jade.vim',                            { 'for': 'jade' }
 
 " Logs
 Plug 'dzeban/vim-log-syntax',               { 'for': 'log' }
