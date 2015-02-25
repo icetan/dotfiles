@@ -318,6 +318,7 @@ au BufRead,BufNewFile *.mml set ft=javascript
 " Riot .tag files
 au BufRead,BufNewFile *.tag set ft=html
 
+" TODO: Convert to plugin
 " Nicer grep
 function! GrepFunc(...)
   let exfiles = split(&wildignore, ',')
