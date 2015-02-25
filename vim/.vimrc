@@ -238,26 +238,6 @@ map <C-T>a :CtrlPBookmarkDirAdd<CR>
 map <C-T>r :CtrlPClearCache<CR>
 map <C-T>t :CtrlPBufTag<CR>
 
-"let s:auto_since = {}
-"function AutoCtrlPClearCacheFunc()
-"  if has('unix')
-"    let cwd_ = getcwd()
-"    let curtime = strftime('%s')
-"    if !has_key(s:auto_since, cwd_) || !empty(system('find ' . cwd_ . ' -type d -ctime -' . (curtime - s:auto_since[cwd_]) . 's'))
-"      let s:auto_since[cwd_] = curtime
-"      exe 'CtrlPClearCache'
-"    endif
-"  " TODO: Windows support
-"  "elseif s:OS ==# 'win'
-"  "  return 'dir ' . a:dir
-"  endif
-"endfunction
-"command AutoCtrlPClearCache call AutoCtrlPClearCacheFunc() | exe 'CtrlP'
-"let g:ctrlp_cmd = 'AutoCtrlPClearCache'
-
-"autocmd User chdir FufIgnoreUpdate   " Depends on cd-hook
-"call fuf#ignore#Update()
-
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <F2> :HdevtoolsInfo<CR>
 au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
