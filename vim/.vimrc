@@ -54,8 +54,6 @@ Plug 'ZeusTheTrueGod/vim-format-js',        { 'for': 'javascript' }
 " CoffeeScript
 Plug 'kchmck/vim-coffee-script',            { 'for': 'coffee' }
 Plug 'mintplant/vim-literate-coffeescript', { 'for': 'litcoffee' }
-" Markdown
-Plug 'tpope/vim-markdown',                  { 'for': 'markdown' }
 " CSS / Less
 Plug 'groenewege/vim-less',                 { 'for': [ 'sass', 'less' ] }
 Plug 'ap/vim-css-color',                    { 'for': 'css' }
@@ -324,6 +322,8 @@ nnoremap dq :windo diffoff<CR>
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
+" Markdown files
+au BufRead,BufNewFile *.md,*.markdown set ft=markdown
 " CoffeeTe tempate files
 au BufRead,BufNewFile *.coffeete set ft=html
 " Arduino source files
