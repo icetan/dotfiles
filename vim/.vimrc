@@ -173,22 +173,21 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
-      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right': [ [ 'errors', 'lineinfo' ], ['percent'], [ 'fileformat', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'fugitive': 'MyFugitive',
       \   'filename': 'MyFilename',
       \   'fileformat': 'MyFileformat',
       \   'filetype': 'MyFiletype',
-      \   'fileencoding': 'MyFileencoding',
       \   'mode': 'MyMode',
-      \   'ctrlpmark': 'CtrlPMark',
+      \   'ctrlpmark': 'CtrlPMark'
       \ },
-      \ 'component': {
-      \   'syntastic': '%{"X"}',
+      \ 'component_expand': {
+      \   'errors': 'MyErrors',
       \ },
       \ 'component_type': {
-      \   'syntastic': 'error',
+      \   'errors': 'error',
       \ },
       \ 'subseparator': { 'left': '|', 'right': '|' }
       \ }
@@ -222,21 +221,21 @@ function! MyFugitive()
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
+  return winwidth(0) > 70 ? &fileformat . ':' . (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 function! MyFiletype()
   return winwidth(0) > 80 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
-function! MyFileencoding()
-  return winwidth(0) > 60 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-
 function! MyMode()
   let fname = expand('%:t')
   return  fname == 'ControlP' ? 'CtrlP' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! MyErrors()
+  return winwidth(0) > 20 && !empty(SyntasticStatuslineFlag()) ? '▲' : ''
 endfunction
 
 function! CtrlPMark()
@@ -266,14 +265,15 @@ function! CtrlPStatusFunc_2(str)
   return lightline#statusline(0)
 endfunction
 
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp,*.js call s:syntastic()
-augroup END
-function! s:syntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
+" TODO: Better updating of syntastic status.
+"augroup AutoSyntastic
+"  autocmd!
+"  autocmd BufWritePost *.c,*.cpp,*.js call s:syntastic()
+"augroup END
+"function! s:syntastic()
+"  SyntasticCheck
+"  call lightline#update()
+"endfunction
 
 
 " v7.3 specific stuff
