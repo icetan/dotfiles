@@ -282,11 +282,9 @@ endfunction
 " the target line
 nnoremap <silent><Space> :call QuickFixPreview()<CR>
 
-" Open a browser with the current document compiled as GitHub flavoured
-" markdown. The official release of gfm2html does not yet support
-" stdin/stdout so you need to install the patched version for now.
-" $ npm install -g icetan/gfm2html#stdin-stdout
-nnoremap <leader>m :silent %w !gfm2html - /tmp/vim-md.html; (open /tmp/vim-md.html; sleep 1; rm /tmp/vim-md.html) &<CR>
+" You need to install `gfm2html` using NPM.
+" $ npm install -g gfm2html
+nnoremap <leader>m :silent !gfm2html % /tmp/vim-md.html; (open /tmp/vim-md.html; sleep 1; rm /tmp/vim-md.html) &<CR>
 
 " Fugitive and diff key mappings
 nnoremap <leader>gd :NoIgnore Gdiff<CR>
