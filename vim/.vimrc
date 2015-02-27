@@ -162,6 +162,8 @@ let g:airline_symbols.whitespace = '●'
 
 let g:airline#extensions#hunks#non_zero_only = 1
 
+let g:airline#extensions#syntastic#enabled = 0
+
 " Add current work dir to status line
 "function! AirlineInit()
 "  let g:airline_section_c = airline#section#create_left(['%{split(getcwd(), "/")[-1]}', 'file'])
