@@ -1,6 +1,6 @@
 dotfiles = $(abspath $(filter-out %. %..,$(wildcard $@/.*)))
 
-objects = bash bash-alias git vim
+objects = bash bash-alias git vim tmux
 
 bash:
 	ln -sf $(dotfiles) ~
@@ -18,6 +18,9 @@ git:
 vim:
 	ln -sf $(dotfiles) ~
 	mkdir -p ~/.vimundo
+
+tmux:
+	ln -sf $(dotfiles) ~
 
 install: $(objects)
 
