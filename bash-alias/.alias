@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#MUIL_EMAIL='c.freden@gmail.com'
+#MUIL_EDITOR='vim - "+set ft=mail bt=nofile"'
+
+shopt -s expand_aliases
+
+alias selectr='~/src/selectr/.cabal-sandbox/bin/selectr'
+
+alias _muil_mail='selectr mu find -f \"d f s\|\|l\" \"%\" \| head -n 40'
+alias _muil_personal_contacts='selectr mu cfind --personal "%" \| head -n 40'
+
+# Search and view email
+alias muv='mu view "$(_muil_mail)"'
+# Search and view email in editor
+alias mul="muv | $MUIL_EDITOR"
+# Search contacts
+alias muc='_muil_personal_contacts'
+# Fetch and index emails
+alias muf="mbsync -a && mu index --my-address=\"$MUIL_EMAIL\""
+
+alias la='ls -a'
+alias ll='ls -l'
+alias lla='ls -la'
+
+# .app's in /Applications
+alias chrome='open -a "Google Chrome" --args'
+alias chrome-canary='open -a "Google Chrome Canary" --args'

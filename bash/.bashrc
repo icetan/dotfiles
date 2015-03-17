@@ -1,4 +1,5 @@
 . ~/.profile
+. ~/.alias
 
 export CLICOLOR=1
 

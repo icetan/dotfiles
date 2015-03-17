@@ -1,11 +1,15 @@
 dotfiles = $(abspath $(filter-out %. %..,$(wildcard $@/.*)))
 
-objects = bash git vim
+objects = bash bash-alias git vim
 
 bash:
 	ln -sf $(dotfiles) ~
 	ln -sf ~/.bashrc ~/.bash_profile
 	touch ~/.profile
+	touch ~/.alias
+
+bash-alias:
+	ln -sf $(dotfiles) ~
 
 git:
 	ln -sf $(dotfiles) ~
