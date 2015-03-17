@@ -1280,7 +1280,7 @@
 	xg3JDc4AAAAAAAACAQAAAAAAAAAtAAAAAAAAAAAAAAAAAAAN0A==
 	</data>
 	<key>Bell</key>
-	<false/>
+	<true/>
 	<key>CursorBlink</key>
 	<true/>
 	<key>CursorColor</key>
@@ -1374,7 +1374,7 @@
 	<key>Linewrap</key>
 	<true/>
 	<key>ProfileCurrentVersion</key>
-	<real>2.02</real>
+	<real>2.04</real>
 	<key>SelectionColor</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGKSpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
@@ -1616,8 +1616,6 @@
 	<false/>
 	<key>UseBrightBold</key>
 	<true/>
-	<key>VisualBell</key>
-	<true/>
 	<key>columnCount</key>
 	<integer>120</integer>
 	<key>name</key>
@@ -1629,7 +1627,7 @@
 	<key>type</key>
 	<string>Window Settings</string>
 	<key>useOptionAsMetaKey</key>
-	<false/>
+	<true/>
 	<key>warnOnShellCloseAction</key>
 	<integer>0</integer>
 </dict>
