@@ -18,7 +18,7 @@ if has('clientserver')
 endif
 
 " Status line
-Plug 'bling/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 " Formatting
 Plug 'tpope/vim-surround'
@@ -120,6 +120,7 @@ set showbreak=↵                       " Line wrap char.
 set visualbell                        " Don't beep.
 set modelines=1                       " Use modeline overrides.
 set scrolloff=3                       " Minimum number of lines to always show above/below the caret.
+set noshowmode                        " Hide mode.
 " Editing
 set backspace=indent,eol,start        " Allow backspacing over everything in insert mode.
 set nojoinspaces                      " 1 space, not 2, when joining sentences.
@@ -146,21 +147,21 @@ set mousemodel=extend
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 
 " Airline config
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-" unicode symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = '|'
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = '|'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.readonly = '▲'
-let g:airline_symbols.linenr = 'L'
-let g:airline_symbols.whitespace = '●'
-
-let g:airline#extensions#hunks#non_zero_only = 1
+"if !exists('g:airline_symbols')
+"  let g:airline_symbols = {}
+"endif
+"
+"" unicode symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = '|'
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = '|'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.readonly = '▲'
+"let g:airline_symbols.linenr = 'L'
+"let g:airline_symbols.whitespace = '●'
+"
+"let g:airline#extensions#hunks#non_zero_only = 1
 
 let g:airline#extensions#syntastic#enabled = 0
 
@@ -169,6 +170,113 @@ let g:airline#extensions#syntastic#enabled = 0
 "  let g:airline_section_c = airline#section#create_left(['%{split(getcwd(), "/")[-1]}', 'file'])
 "endfunction
 "autocmd VimEnter * call AirlineInit()
+
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+      \   'right': [ [ 'errors', 'lineinfo' ], ['percent'], [ 'fileformat', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'MyFugitive',
+      \   'filename': 'MyFilename',
+      \   'fileformat': 'MyFileformat',
+      \   'filetype': 'MyFiletype',
+      \   'mode': 'MyMode',
+      \   'ctrlpmark': 'CtrlPMark'
+      \ },
+      \ 'component_expand': {
+      \   'errors': 'MyErrors',
+      \ },
+      \ 'component_type': {
+      \   'errors': 'error',
+      \ },
+      \ 'subseparator': { 'left': '|', 'right': '|' }
+      \ }
+
+function! MyModified()
+  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help' && &readonly ? 'RO' : ''
+endfunction
+
+function! MyFilename()
+  let fname = expand('%:t')
+  return fname == 'ControlP' ? g:lightline.ctrlp_item :
+        \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if exists('*fugitive#head')
+      let mark = ''  " edit here for cool mark
+      let _ = fugitive#head()
+      return strlen(_) ? mark._ : ''
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat . ':' . (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 80 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyMode()
+  let fname = expand('%:t')
+  return  fname == 'ControlP' ? 'CtrlP' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! MyErrors()
+  return winwidth(0) > 20 && !empty(SyntasticStatuslineFlag()) ? '▲' : ''
+endfunction
+
+function! CtrlPMark()
+  if expand('%:t') =~ 'ControlP'
+    call lightline#link('iR'[g:lightline.ctrlp_regex])
+    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+          \ , g:lightline.ctrlp_next], 0)
+  else
+    return ''
+  endif
+endfunction
+
+let g:ctrlp_status_func = {
+  \ 'main': 'CtrlPStatusFunc_1',
+  \ 'prog': 'CtrlPStatusFunc_2',
+  \ }
+
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+  let g:lightline.ctrlp_regex = a:regex
+  let g:lightline.ctrlp_prev = a:prev
+  let g:lightline.ctrlp_item = a:item
+  let g:lightline.ctrlp_next = a:next
+  return lightline#statusline(0)
+endfunction
+
+function! CtrlPStatusFunc_2(str)
+  return lightline#statusline(0)
+endfunction
+
+" TODO: Better updating of syntastic status.
+"augroup AutoSyntastic
+"  autocmd!
+"  autocmd BufWritePost *.c,*.cpp,*.js call s:syntastic()
+"augroup END
+"function! s:syntastic()
+"  SyntasticCheck
+"  call lightline#update()
+"endfunction
+
 
 " v7.3 specific stuff
 if v:version >= 703
