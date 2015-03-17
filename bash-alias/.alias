@@ -26,3 +26,5 @@ alias lla='ls -la'
 # .app's in /Applications
 alias chrome='open -a "Google Chrome" --args'
 alias chrome-canary='open -a "Google Chrome Canary" --args'
+
+. ~/.alias.local

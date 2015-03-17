@@ -482,3 +482,5 @@ endfunction
 command ToggleWildignore call ToggleWildignore()
 
 nnoremap <leader>i :ToggleWildignore<CR>
+
+source ~/.vimrc.local
