@@ -2,6 +2,9 @@ dotfiles = $(abspath $(filter-out %. %..,$(wildcard $@/.*)))
 
 objects = bash bash-alias git vim tmux
 
+
+all: $(objects)
+
 bash:
 	ln -sf $(dotfiles) ~
 	ln -sf ~/.bashrc ~/.bash_profile
@@ -22,6 +25,4 @@ vim:
 tmux:
 	ln -sf $(dotfiles) ~
 
-install: $(objects)
-
-.PHONY: install $(objects)
+.PHONY: all $(objects)
