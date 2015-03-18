@@ -352,11 +352,18 @@ map <C-T>a :CtrlPBookmarkDirAdd<CR>
 map <C-T>r :CtrlPClearCache<CR>
 map <C-T>t :CtrlPBufTag<CR>
 
+" General omnicomplete
+set omnifunc=syntaxcomplete#Complete
+
+" Haskell setup
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <F2> :HdevtoolsInfo<CR>
 au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
 au FileType haskell setlocal formatprg=pointfree\ \"$(cat)\"
+
+" Java setup
+au Filetype java setlocal omnifunc=javacomplete#Complete
 
 " Syntastic
 
@@ -429,8 +436,6 @@ au BufRead,BufNewFile *.mss set ft=less
 au BufRead,BufNewFile *.mml set ft=javascript
 " Riot .tag files
 au BufRead,BufNewFile *.tag set ft=html
-" Use javacomplete as omnifunc for java files
-au Filetype java setlocal omnifunc=javacomplete#Complete
 
 " TODO: Convert to plugin
 " Nicer grep
