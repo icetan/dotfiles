@@ -23,8 +23,23 @@ alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -la'
 
+alias ctagsr='ctags -R -f ./.tags .'
+
 # .app's in /Applications
 alias chrome='open -a "Google Chrome" --args'
 alias chrome-canary='open -a "Google Chrome Canary" --args'
+
+# Open an URL in a specific Google Chrome tab.
+# Usage: chrometab <url> [tab-id]
+chrometab() {
+  id=$2
+  if [ $id ]; then
+    chrome-cli list tabs | grep -q ":$id"
+    id=$([ $? == 0 ] && (chrome-cli open "$1" -t $id; echo $id))
+  fi
+  [ ! $id ] && id=$(chrome-cli open "$1" | grep -Eo '\d+')
+  echo $id
+}
+export -f chrometab
 
 . ~/.alias.local

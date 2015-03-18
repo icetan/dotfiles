@@ -64,6 +64,8 @@ Plug 'derekwyatt/vim-scala',                { 'for': 'scala' }
 " Haskell
 Plug 'bitc/vim-hdevtools',                  { 'for': 'haskell' }
 "Plug 'eagletmt/neco-ghc',                  { 'for': 'haskell' }
+" Java
+Plug 'vim-scripts/javacomplete',            { 'for': 'java' }
 
 " Logs
 Plug 'dzeban/vim-log-syntax',               { 'for': 'log' }
@@ -145,6 +147,8 @@ set mouse=a
 set mousemodel=extend
 " Files to ignore
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+" ctags files
+set tags+=.tags;~
 
 " Airline config
 "if !exists('g:airline_symbols')
@@ -394,7 +398,7 @@ nnoremap <silent><Space> :call QuickFixPreview()<CR>
 
 " You need to install `gfm2html` using NPM.
 " $ npm install -g gfm2html
-nnoremap <leader>m :silent !gfm2html % /tmp/vim-md.html; (open /tmp/vim-md.html; sleep 1; rm /tmp/vim-md.html) &<CR>
+nnoremap <leader>m :silent !gfm2html % /tmp/vim-md.html; (echo $(chrometab file:///tmp/vim-md.html $(cat /tmp/vim-md-id)) > /tmp/vim-md-id; sleep 1; rm /tmp/vim-md.html) &<CR>
 
 " Fugitive and diff key mappings
 nnoremap <leader>gd :NoIgnore Gdiff<CR>
@@ -425,6 +429,8 @@ au BufRead,BufNewFile *.mss set ft=less
 au BufRead,BufNewFile *.mml set ft=javascript
 " Riot .tag files
 au BufRead,BufNewFile *.tag set ft=html
+" Use javacomplete as omnifunc for java files
+au Filetype java setlocal omnifunc=javacomplete#Complete
 
 " TODO: Convert to plugin
 " Nicer grep
