@@ -1,8 +1,6 @@
 . ~/.profile
 . ~/.alias
 
-export CLICOLOR=1
-
 PS1="\[\e[1;30m\]\h \[\e[0m\]\w"
 
 function _git_prompt() {
@@ -25,6 +23,8 @@ function _git_prompt() {
   fi
 }
 
+if [ $(which brew) ]; then
+# Brew specific stuff
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 
@@ -32,6 +32,7 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   export GIT_PS1_SHOWUNTRACKEDFILES=true
 
   PS1="$PS1\$(_git_prompt)"
+fi
 fi
 
 PS1="$PS1\[\e[0;37m\]\$\[\e[0m\] "

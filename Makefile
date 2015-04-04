@@ -24,9 +24,9 @@ all: $(objects)
 
 bash:
 	$(cp_cmd) $(dotfiles) ~
-	-rm $(cp_flags) ~/.bash_profile
+	-ln $(cp_flags) ~/.bashrc ~/.bash_profile
 	touch ~/.bashrc.local
-	touch ~/.profile
+	touch ~/.profile.local
 	touch ~/.alias
 
 bash-alias:

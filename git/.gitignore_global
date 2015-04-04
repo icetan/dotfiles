@@ -1,6 +1,8 @@
 *~
 .DS_Store
 node_modules/
-.tags
+GPATH
+GRTAGS
+GTAGS
 run-*.sh
 run.sh

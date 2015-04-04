@@ -46,6 +46,7 @@ Plug 'icetan/gitignore'
 Plug 'jayflo/vim-skip'
 Plug 'tpope/vim-unimpaired'
 Plug 'jeetsukumaran/vim-indentwise'
+Plug 'christoomey/vim-tmux-navigator'
 
 " language support
 " JavaScript
@@ -66,6 +67,9 @@ Plug 'bitc/vim-hdevtools',                  { 'for': 'haskell' }
 "Plug 'eagletmt/neco-ghc',                  { 'for': 'haskell' }
 " Java
 Plug 'vim-scripts/javacomplete',            { 'for': 'java' }
+
+" gtags support
+Plug 'vim-scripts/gtags.vim',               { 'on': [ 'Gtags' ] }
 
 " Logs
 Plug 'dzeban/vim-log-syntax',               { 'for': 'log' }
@@ -147,8 +151,6 @@ set mouse=a
 set mousemodel=extend
 " Files to ignore
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-" ctags files
-set tags+=.tags;~
 
 " Airline config
 "if !exists('g:airline_symbols')
@@ -312,6 +314,11 @@ map <C-W>d :bp\|bd #<CR>
 " Create an empty buffer in verical split window
 map <C-W>n :vert new<CR>
 
+" Ctrl-h same as split horizontally
+map <C-W>h <C-W>s
+" Ctrl-x same as close window
+map <C-W>x <C-W>c
+
 " Simplified window navigation
 map <C-H> <C-W>h
 map <C-J> <C-W>j
@@ -351,6 +358,12 @@ map <C-T>o :CtrlPBookmarkDir<CR>
 map <C-T>a :CtrlPBookmarkDirAdd<CR>
 map <C-T>r :CtrlPClearCache<CR>
 map <C-T>t :CtrlPBufTag<CR>
+map <C-T>q :CtrlPQuickfix<CR>
+
+" Replace ctags lookup with gtags
+nnoremap <C-]> :execute "Gtags " . expand("<cword>")<CR>
+nnoremap <C-}> :execute "Gtags -r " . expand("<cword>")<CR>
+nnoremap <C-g> :Gtags -f %<CR>
 
 " General omnicomplete
 set omnifunc=syntaxcomplete#Complete
@@ -405,7 +418,7 @@ nnoremap <silent><Space> :call QuickFixPreview()<CR>
 
 " You need to install `gfm2html` using NPM.
 " $ npm install -g gfm2html
-nnoremap <leader>m :silent !gfm2html % /tmp/vim-md.html; (echo $(chrometab file:///tmp/vim-md.html $(cat /tmp/vim-md-id)) > /tmp/vim-md-id; sleep 1; rm /tmp/vim-md.html) &<CR>
+nnoremap <leader>m :silent !gfm2html % /tmp/vim-md.html; (echo $(chrome-tab file:///tmp/vim-md.html $(cat /tmp/vim-md-id)) > /tmp/vim-md-id; sleep 1; rm /tmp/vim-md.html) &<CR>
 
 " Fugitive and diff key mappings
 nnoremap <leader>gd :NoIgnore Gdiff<CR>
