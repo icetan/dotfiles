@@ -4,5 +4,9 @@ node_modules/
 GPATH
 GRTAGS
 GTAGS
+tags
 run-*.sh
 run.sh
+*.min.js
+*.min.css
+*.js.map

@@ -2,27 +2,54 @@
 
 shopt -s expand_aliases
 
-alias selectr='~/src/selectr/.cabal-sandbox/bin/selectr'
+alias _muil_mail='selectr mu find -t -s d --reverse -f \"d f s [g]\|\|l\" \"%\" \| head -n 40'
+alias _test_selectr='selectr echo \" % maildir \"'
+alias _muil_personal_contacts='selectr mu cfind "%" \| head -n 40 | sed "s/\([^ ]*\)$/<\1>/g"'
 
-alias _muil_mail='selectr mu find -f \"d f s\|\|l\" \"%\" \| head -n 40'
-alias _muil_personal_contacts='selectr mu cfind --personal "%" \| head -n 40'
-
-# Search and view email
-alias muv='mu view "$(_muil_mail)"'
-# Search and view email in editor
-alias mul="muv | $MUIL_EDITOR"
 # Search contacts
 alias muc='_muil_personal_contacts'
 # Fetch and index emails
-alias muf="mbsync -a && mu index --my-address=\"$MUIL_EMAIL\""
+alias mus='mbsync -a && mu index --my-address="$MUIL_EMAIL"'
+# Select an email and save the id to $MUID
+alias muf='export MUID="$(_muil_mail)"'
+# View HTML email as text
+# TODO: Need to replace the extraction part. This is just an example of how to
+# extract and format HTML email as plain text.
+alias muh='mu extract "$MUID" --parts=1 --overwrite --target-dir=/tmp && iconv -f iso-8859-1 -t utf-8 /tmp/1.part | pandoc -f html -t plain --reference-links'
+# View email in editor
+alias mue='mu view "$MUID" | '$MUIL_EDITOR
+# View email
+alias muv='mu view "$MUID"'
+
+# Edit mail
+alias vimm='vim "+set ft=mail"'
+# Send an email
+alias sm='( echo "To: "; echo "Subject: "; echo; echo; ) | vipe | msmtp -t'
 
 alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -la'
 
+function b64sourcemap() {
+  gsed -i'' 's#\(//\# sourceMappingURL=\)\(.*\)$#echo "\1data:application/json;charset=utf-8;base64,`base64 < \2`"#ge' $1
+}
+
+function readlinkf() {
+  ( cd ${1%/*} && pwd -P )
+}
+
+function notify() {
+  /usr/bin/osascript -e "display notification \"$*\""
+}
+POMO_TIMEOUT_M=1
+POMO_TIMEOUT_S=$(expr 60 "*" $POMO_TIMEOUT_M)
+alias pomo="echo Notification in ${POMO_TIMEOUT_M}m ; sleep $POMO_TIMEOUT_S && notify Take a break!"
+
 # .app's in /Applications
 alias chrome='open -a "Google Chrome" --args'
 alias chrome-canary='open -a "Google Chrome Canary" --args'
+alias chrome-cors='open -a "Google Chrome" --args --disable-web-security'
+alias chrome-canary-cors='open -a "Google Chrome Canary" --args --disable-web-security'
 
 # Open an URL in a specific Google Chrome tab.
 # Usage: chrometab <url> [tab-id]
@@ -61,5 +88,7 @@ function hdoci {
 function hdoc {
   hdoci $(hdocf $1 | head -n1)
 }
+
+alias docker-env='eval $(docker-machine env default)'
 
 . ~/.alias.local

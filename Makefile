@@ -44,6 +44,6 @@ vim:
 
 tmux:
 	$(cp_cmd) $(dotfiles) ~
-	touch ~/.tmux.conf.local
+	touch ~/.tmux.local
 
 .PHONY: all $(objects)

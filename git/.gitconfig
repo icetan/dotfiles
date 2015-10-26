@@ -2,7 +2,6 @@
     path = ~/.gitconfig.local
 [core]
     excludesfile = ~/.gitignore_global
-    editor = vim
 [diff]
     tool = mvimdiff
 [difftool "mvimdiff"]
@@ -18,3 +17,7 @@
     outgoing = log @{u}..
     showtool = "!sh -c 'git --no-pager show --stat "$0"; git difftool "$0~1" "$0"'"
     #diffall = "!mvim -p $(git diff --name-only $*) -c \"tabdo Gdiff $*\" #"
+[init]
+    templatedir = ~/.git_template
+[rebase]
+    autosquash = true

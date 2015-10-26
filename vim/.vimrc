@@ -19,6 +19,7 @@ endif
 
 " Status line
 Plug 'itchyny/lightline.vim'
+"Plug 'edkolev/tmuxline.vim' " Only needed to generate a tmux theme conf file
 
 " Formatting
 Plug 'tpope/vim-surround'
@@ -32,10 +33,8 @@ Plug 'embear/vim-localvimrc'
 " Project management
 Plug 'tpope/vim-vinegar'
 Plug 'kien/ctrlp.vim'
-" PyMatcher for CtrlP
-if has('python')
-  Plug 'FelikZ/ctrlp-py-matcher'
-endif
+if has('python') | Plug 'FelikZ/ctrlp-py-matcher' | endif " PyMatcher for CtrlP
+"Plug 'RobertAudi/ctrlp_bdelete.vim' " Mapping doesn't work, need to fix
 
 " VCS
 Plug 'tpope/vim-fugitive'
@@ -55,6 +54,8 @@ Plug 'ZeusTheTrueGod/vim-format-js',        { 'for': 'javascript' }
 " CoffeeScript
 Plug 'kchmck/vim-coffee-script',            { 'for': 'coffee' }
 Plug 'mintplant/vim-literate-coffeescript', { 'for': 'litcoffee' }
+" TypeScript
+Plug 'leafgarland/typescript-vim',          { 'for': 'typescript' }
 " CSS / Less
 Plug 'groenewege/vim-less',                 { 'for': [ 'sass', 'less' ] }
 Plug 'ap/vim-css-color',                    { 'for': 'css' }
@@ -67,6 +68,8 @@ Plug 'bitc/vim-hdevtools',                  { 'for': 'haskell' }
 "Plug 'eagletmt/neco-ghc',                  { 'for': 'haskell' }
 " Java
 Plug 'vim-scripts/javacomplete',            { 'for': 'java' }
+" Markdown
+Plug 'nelstrom/vim-markdown-folding',       { 'for': 'markdown' }
 
 " gtags support
 Plug 'vim-scripts/gtags.vim',               { 'on': [ 'Gtags' ] }
@@ -120,6 +123,7 @@ set list!                             " Show invisibles.
 set showcmd                           " Show partially typed command sequences.
 set laststatus=2                      " Always show status bar.
 set ruler                             " Show line, column and scroll info in status line.
+set textwidth=80                      " Automatically wrap lines when inserting.
 set wrap                              " Wrap lines.
 set linebreak
 set showbreak=↵                       " Line wrap char.
@@ -127,6 +131,7 @@ set visualbell                        " Don't beep.
 set modelines=1                       " Use modeline overrides.
 set scrolloff=3                       " Minimum number of lines to always show above/below the caret.
 set noshowmode                        " Hide mode.
+set nofoldenable                      " Disable fold on open file
 " Editing
 set backspace=indent,eol,start        " Allow backspacing over everything in insert mode.
 set nojoinspaces                      " 1 space, not 2, when joining sentences.
@@ -140,6 +145,8 @@ set autoindent
 set nobackup
 set noswapfile
 set nowritebackup
+" Autoread file on change
+"set autoread
 " Always forward slashes
 set shellslash
 " Don't print stuff from shell
@@ -149,6 +156,11 @@ set viminfo=%,!,'50,\"100,:100,n~/.viminfo
 " Use mouse in terminal
 set mouse=a
 set mousemodel=extend
+" No timeout for ESC
+set timeoutlen=1000 ttimeoutlen=0
+" Look for ctags up the dir tree
+set tags=tags;/
+
 " Files to ignore
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 
@@ -169,7 +181,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 "
 "let g:airline#extensions#hunks#non_zero_only = 1
 
-let g:airline#extensions#syntastic#enabled = 0
+"let g:airline#extensions#syntastic#enabled = 0
 
 " Add current work dir to status line
 "function! AirlineInit()
@@ -180,7 +192,7 @@ let g:airline#extensions#syntastic#enabled = 0
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename', 'ctrlpmark'] ],
       \   'right': [ [ 'errors', 'lineinfo' ], ['percent'], [ 'fileformat', 'filetype' ] ]
       \ },
       \ 'component_function': {
@@ -212,7 +224,10 @@ function! MyFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' ? g:lightline.ctrlp_item :
         \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != fname
+        \   ? (winwidth(0) > 60 ? expand('%') : fname)
+        \   : '[No Name]'
+        \ ) .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
@@ -286,8 +301,10 @@ endfunction
 
 " v7.3 specific stuff
 if v:version >= 703
-  " Margin line
-  set cc=80
+  " Margin line same value as textwidth
+  set colorcolumn=+0
+  "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
+
   " Persistent undo
   set undofile
   set undodir=~/.vimundo " Need to create this directory for undofile to work
@@ -300,30 +317,50 @@ if has("win32")
   set shellxquote=\"
 endif
 
+" TODO: doesn't work in iTerm2 + OSX + tmux
+" Sync with OS clipboard
+"if has("clipboard")
+"  set clipboard=unnamed " copy to the system clipboard
+"
+"  if has("unnamedplus") " X11 support
+"    set clipboard+=unnamedplus
+"  endif
+"endif
+
 " Key mappings
 let mapleader = ","
 
 set pastetoggle=<F4>
 
 " Clear highlights
-map <F3> :noh<CR>:match<CR>
+map <F3> :let @/=''<CR>
 
 " Close current buffer
-map <C-W>d :bp\|bd #<CR>
+map <C-W>d :bn\|bd #<CR>
 
 " Create an empty buffer in verical split window
 map <C-W>n :vert new<CR>
 
 " Ctrl-h same as split horizontally
-map <C-W>h <C-W>s
+noremap <C-W>h <C-W>s
 " Ctrl-x same as close window
 map <C-W>x <C-W>c
 
+" Open current buffer in new tab, hack for tmux like zoom feature
+noremap <C-W>z :tab split<CR>
+
 " Simplified window navigation
-map <C-H> <C-W>h
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-l> <C-W>l
+" XXX: Hack for neovim, Ctrl-H is interpreted as a backspace
+" https://github.com/neovim/neovim/issues/2048
+if has('nvim')
+  "nnoremap <BS> <C-W>h
+  nnoremap <bs> :<c-u>TmuxNavigateLeft<cr>
+else
+  nnoremap <C-H> <C-W>h
+endif
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-l> <C-W>l
 "nmap - <C-W>-
 nmap + <C-W>+
 
@@ -360,33 +397,75 @@ map <C-T>r :CtrlPClearCache<CR>
 map <C-T>t :CtrlPBufTag<CR>
 map <C-T>q :CtrlPQuickfix<CR>
 
+" Maps C-d in CtrlP buffer mode to delete marked buffers.
+"call ctrlp_bdelete#init()
+
 " Replace ctags lookup with gtags
-nnoremap <C-]> :execute "Gtags " . expand("<cword>")<CR>
-nnoremap <C-}> :execute "Gtags -r " . expand("<cword>")<CR>
+nnoremap [g :execute "Gtags " . expand("<cword>")<CR>
+nnoremap ]g :execute "Gtags -r " . expand("<cword>")<CR>
 nnoremap <C-g> :Gtags -f %<CR>
+function! GtagsFunc()
+  call system( "find . -type f ! -path '".join(split(&wildignore,','),"' ! -path '")."' | gtags -f -" )
+endfunction
+command! Gtagsr call GtagsFunc()
 
 " General omnicomplete
 set omnifunc=syntaxcomplete#Complete
+au FileType python     setlocal omnifunc=pythoncomplete#Complete
+au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+au FileType html       setlocal omnifunc=htmlcomplete#CompleteTags
+au FileType css        setlocal omnifunc=csscomplete#CompleteCSS
+au FileType xml        setlocal omnifunc=xmlcomplete#CompleteTags
+au FileType php        setlocal omnifunc=phpcomplete#CompletePHP
+au FileType c          setlocal omnifunc=ccomplete#Complete
 
 " Haskell setup
+au FileType haskell setlocal omnifunc=necoghc#omnifunc
+au FileType haskell setlocal formatprg=pointfree\ \"$(cat)\"
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <F2> :HdevtoolsInfo<CR>
 au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
-au FileType haskell setlocal omnifunc=necoghc#omnifunc
-au FileType haskell setlocal formatprg=pointfree\ \"$(cat)\"
 
 " Java setup
-au Filetype java setlocal omnifunc=javacomplete#Complete
+au FileType java setlocal omnifunc=javacomplete#Complete
+" 4 space indentation
+au FileType java setlocal sw=4 sts=4 ts=4
+
+" TypeScript
+" 4 space indentation
+au FileType typescript setlocal sw=4 sts=4 ts=4
+" Always target ES5
+let g:syntastic_typescript_tsc_args='--target ES5'
+
+" HTML
+" 4 space indentation
+au FileType html setlocal sw=4 sts=4 ts=4
+" Use tidy5 to get HTML5 linting
+"let g:syntastic_html_tidy_exec = 'tidy5'
+" Ignore errors and warnings for custom tags and attributes
+let g:syntastic_html_tidy_ignore_errors =
+  \[" proprietary attribute \""
+  \,"> is not recognized!"
+  \,"discarding unexpected <"
+  \]
 
 " Syntastic
 
 " Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '▲'
-highlight SyntasticWarningSign guifg=yellow
+highlight SyntasticWarningSign ctermfg=3 guifg=yellow
 
-map <C-S>s :up<CR>:SyntasticCheck<CR>
-map <C-S>e :up<CR>:SyntasticCheck<CR>:Errors<CR>
+let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+
+" Force a redraw
+nnoremap <leader>r :redraw!<CR>
+
+" TODO: Make a working key mapping to invoke syntastic manualy and show results
+nnoremap <leader>s :Errors<CR>
 
 " Highlight selected text (visual mode), forwards and `#` only higlights
 " witouth jumping.
@@ -416,9 +495,16 @@ endfunction
 " the target line
 nnoremap <silent><Space> :call QuickFixPreview()<CR>
 
-" You need to install `gfm2html` using NPM.
+" You need to install `gfm2html` using NPM and chrome-cli.
 " $ npm install -g gfm2html
-nnoremap <leader>m :silent !gfm2html % /tmp/vim-md.html; (echo $(chrome-tab file:///tmp/vim-md.html $(cat /tmp/vim-md-id)) > /tmp/vim-md-id; sleep 1; rm /tmp/vim-md.html) &<CR>
+" $ brew install chrome-cli
+function! Gfm2Html()
+  call system("bash -l -c 'gfm2html \"" . expand('%') . "\" /tmp/vim-md.html; (echo $(chrome-tab file:///tmp/vim-md.html $(cat /tmp/vim-md-id)) > /tmp/vim-md-id; sleep 1; rm /tmp/vim-md.html)'")
+endfunction
+nnoremap <leader>m :Silent call Gfm2Html()<CR>
+
+" Open file or URL under cursor externally
+nnoremap <leader>b :silent call system('open ' . shellescape(expand('<cfile>')))<CR>
 
 " Fugitive and diff key mappings
 nnoremap <leader>gd :NoIgnore Gdiff<CR>
@@ -450,18 +536,30 @@ au BufRead,BufNewFile *.mml set ft=javascript
 " Riot .tag files
 au BufRead,BufNewFile *.tag set ft=html
 
+" Make CSS class and id names include `-`
+au FileType html,css,less,scss setl isk+=-
+
+" Not redrawing correctly after execution of shell commands when running regular
+" non-GUI Vim and some times needs to force a redraw. Haven't had this problem
+" with NeoVim though.
+if has('nvim')
+  command! -nargs=+ Silent execute 'silent <args>'
+else
+  command! -nargs=+ Silent execute 'silent <args>' | redraw!
+endif
+
 " TODO: Convert to plugin
 " Nicer grep
 function! GrepFunc(...)
   let exfiles = split(&wildignore, ',')
-  let exdirs = map(filter(copy(exfiles), "v:val=~'\\/\\*\\?$'"), "substitute(v:val, '^\\*\\/\\|\\/\\*\\?$', '', 'g')")
+  let exdirs = map(filter(copy(exfiles), "v:val=~'\\/\\*\\?$'"), "substitute(v:val, '\\/\\*\\?$', '', 'g')")
   call filter(exfiles, "v:val!~'\\/\\*\\?$'")
   let args_ = '-I '
   if len(exfiles) | let args_ .= '--exclude={'.join(exfiles, ',').'} ' | endif
   if len(exdirs) | let args_ .= '--exclude-dir={'.join(exdirs,',').'} ' | endif
   let args_ .= join(a:000, ' ')
   if (empty(v:servername))
-    exe 'silent! grep! ' . args_
+    exe 'Silent grep! ' . args_
     copen
   else
     exe 'AsyncGrep ' . args_
