@@ -1,21 +1,27 @@
 " be iMproved
 set nocompatible
 
+let g:vim_home = split(&rtp, ',')[0] "'~/.config/nvim'
+
 " Automatically install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !mkdir -p ~/.vim/autoload
-  silent !curl -fLo ~/.vim/autoload/plug.vim
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob(g:vim_home.'/autoload/plug.vim'))
+  call system('mkdir -p '.g:vim_home.'/autoload')
+  call system('curl -fLo '.g:vim_home.'/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
   autocmd VimEnter * PlugInstall
 endif
 
+"if empty(glob(g:vim_home.'/spell'))
+"  let lang = 'en'
+"  call system("curl -l 'ftp://ftp.vim.org/pub/vim/runtime/spell/' | grep -E '^(".lang.")\.' | xargs -I% curl 'ftp://ftp.vim.org/pub/vim/runtime/spell/%' -o '".g:vim_home."/spell/%'")
+"endif
+
 " Begin declaration of plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin(g:vim_home.'/plugged')
 
 " Asynchronous commands yay!
-if has('clientserver')
-  Plug 'pydave/AsyncCommand'
-endif
+"if has('clientserver')
+"  Plug 'pydave/AsyncCommand'
+"endif
 
 " Status line
 Plug 'itchyny/lightline.vim'
@@ -24,7 +30,8 @@ Plug 'itchyny/lightline.vim'
 " Formatting
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
-Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab'] }
+"Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab'] }
+Plug 'godlygeek/tabular'
 
 " .lvimrc files for project local editor settings
 Plug 'embear/vim-localvimrc'
@@ -65,11 +72,12 @@ Plug 'mattn/emmet-vim',                     { 'for': 'html' }
 Plug 'derekwyatt/vim-scala',                { 'for': 'scala' }
 " Haskell
 Plug 'bitc/vim-hdevtools',                  { 'for': 'haskell' }
-"Plug 'eagletmt/neco-ghc',                  { 'for': 'haskell' }
+"Plug 'eagletmt/neco-ghc',                   { 'for': 'haskell' }
 " Java
-Plug 'vim-scripts/javacomplete',            { 'for': 'java' }
+"Plug 'vim-scripts/javacomplete',            { 'for': 'java' }
 " Markdown
 Plug 'nelstrom/vim-markdown-folding',       { 'for': 'markdown' }
+Plug 'tpope/vim-markdown',                  { 'for': 'markdown' }
 
 " gtags support
 Plug 'vim-scripts/gtags.vim',               { 'on': [ 'Gtags' ] }
@@ -94,6 +102,9 @@ if has("gui_running")
   set guioptions=egmrt                " Hide toolbar in MacVim
   set guifont=Menlo:h11
 endif
+
+"let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let g:solarized_termtrans=1
 
 set background=dark
 colorscheme solarized
@@ -195,9 +206,14 @@ let g:lightline = {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename', 'ctrlpmark'] ],
       \   'right': [ [ 'errors', 'lineinfo' ], ['percent'], [ 'fileformat', 'filetype' ] ]
       \ },
+      \ 'inactive': {
+      \   'left': [ [ 'fugitive', 'filepath' ] ],
+      \   'right': [ [ 'errors', 'lineinfo' ], ['percent'] ]
+      \ },
       \ 'component_function': {
       \   'fugitive': 'MyFugitive',
       \   'filename': 'MyFilename',
+      \   'filepath': 'MyFilePath',
       \   'fileformat': 'MyFileformat',
       \   'filetype': 'MyFiletype',
       \   'mode': 'MyMode',
@@ -222,12 +238,20 @@ endfunction
 
 function! MyFilename()
   let fname = expand('%:t')
+  "\   ? (winwidth(0) > strlen(expand('%')) ? expand('%') : fname)
   return fname == 'ControlP' ? g:lightline.ctrlp_item :
         \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
         \ ('' != fname
-        \   ? (winwidth(0) > 60 ? expand('%') : fname)
+        \   ? fname
         \   : '[No Name]'
         \ ) .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFilePath()
+  let fname = expand('%')
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ ('' != fname ? fname : '[No Name]' ) .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
@@ -244,7 +268,7 @@ function! MyFugitive()
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat . ':' . (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth(0) > 80 ? &fileformat . ':' . (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 function! MyFiletype()
@@ -252,9 +276,8 @@ function! MyFiletype()
 endfunction
 
 function! MyMode()
-  let fname = expand('%:t')
-  return  fname == 'ControlP' ? 'CtrlP' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
+  let fname = expand('%:t') == 'ControlP' ? 'CtrlP' : lightline#mode()
+  return winwidth(0) > 80 ? fname : split(fname, '.\zs')[0]
 endfunction
 
 function! MyErrors()
@@ -409,6 +432,12 @@ function! GtagsFunc()
 endfunction
 command! Gtagsr call GtagsFunc()
 
+" Completion behavior http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+set completeopt=longest,menuone
+" TODO: Remaping Ctrl-N in completion popup to down arrow doesn't work
+"inoremap <expr> <C-n> (pumvisible() ? "<Down>" : "<C-n>")
+"inoremap <expr> <C-p> (pumvisible() ? "<Up>" : "<C-p>")
+
 " General omnicomplete
 set omnifunc=syntaxcomplete#Complete
 au FileType python     setlocal omnifunc=pythoncomplete#Complete
@@ -427,7 +456,11 @@ au FileType haskell nnoremap <buffer> <F2> :HdevtoolsInfo<CR>
 au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
 
 " Java setup
-au FileType java setlocal omnifunc=javacomplete#Complete
+"au FileType java setlocal omnifunc=javacomplete#Complete
+let g:EclimCompletionMethod = 'omnifunc'
+" Remap lookup symbol
+au FileType java nnoremap [g :JavaSearch<CR>
+au FileType java nnoremap ]g :JavaCallHierarchy<CR>
 " 4 space indentation
 au FileType java setlocal sw=4 sts=4 ts=4
 
@@ -525,7 +558,8 @@ nnoremap dq :windo diffoff<CR>
 cmap w!! w !sudo tee > /dev/null %
 
 " Markdown files
-au BufRead,BufNewFile *.md,*.markdown set ft=markdown
+au  BufRead,BufNewFile *.md,*.markdown set ft=markdown
+let g:markdown_fenced_languages = ['html', 'xml', 'python', 'sh', 'bash=sh', 'json']
 " CoffeeTe tempate files
 au BufRead,BufNewFile *.coffeete set ft=html
 " Arduino source files
@@ -558,13 +592,13 @@ function! GrepFunc(...)
   if len(exfiles) | let args_ .= '--exclude={'.join(exfiles, ',').'} ' | endif
   if len(exdirs) | let args_ .= '--exclude-dir={'.join(exdirs,',').'} ' | endif
   let args_ .= join(a:000, ' ')
-  if (empty(v:servername))
+  "if (empty(v:servername))
     exe 'Silent grep! ' . args_
     copen
-  else
-    exe 'AsyncGrep ' . args_
-    echo 'Greping...'
-  endif
+  "else
+  "  exe 'AsyncGrep ' . args_
+  "  echo 'Greping...'
+  "endif
 endfunction
 
 function! GrepirSelection()
@@ -580,7 +614,10 @@ nnoremap <silent><leader>f :call GrepirSelection()<CR>
 let g:localvimrc_persistent = 1
 
 " Add global git ignore to wildignore
-autocmd VimEnter * WildignoreFromGitignore ~ .gitignore_global
+let s:pwd = system('pwd')
+autocmd VimEnter * let &wildignore = &wildignore . ',' . netrw_gitignore#Hide()
+" \ . join(map(split(netrw_gitignore#Hide(), ','), "s:pwd . '/' . v:val"), ',')
+"autocmd VimEnter * WildignoreFromGitignore ~ .gitignore_global
 
 function! WithoutWildignore(...)
   let lastwildignore = &wildignore
