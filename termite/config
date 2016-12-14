@@ -1,0 +1,49 @@
+[options]
+mouse_autohide = true
+font = Monospace 9
+#font = Noto Color Emoji 9
+#font = Droid Sans Mono 9
+
+[colors]
+
+# special
+foreground      = #839496
+foreground_bold = #93a1a1
+background      = #002b36
+#background      = #FDF6E3 # Light theme
+#
+#cursor            = #93a1a1
+#cursor_foreground = #002b36
+
+# black
+color8  = #004557
+color0  = #073642
+
+# red
+color9  = #cb4b16
+color1  = #dc322f
+
+# green
+color10  = #586e75
+color2 = #859900
+
+# yellow
+color11  = #657b83
+color3 = #b58900
+
+# blue
+color12  = #839496
+color4 = #268bd2
+
+# magenta
+color13  = #6c71c4
+color5 = #d33682
+
+# cyan
+color14  = #93a1a1
+color6 = #2aa198
+
+# white
+color15  = #fdf6e3
+color7 = #eee8d5
+

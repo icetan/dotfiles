@@ -42,6 +42,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'kien/ctrlp.vim'
 if has('python') | Plug 'FelikZ/ctrlp-py-matcher' | endif " PyMatcher for CtrlP
 "Plug 'RobertAudi/ctrlp_bdelete.vim' " Mapping doesn't work, need to fix
+Plug '907th/vim-auto-save'
 
 " VCS
 Plug 'tpope/vim-fugitive'
@@ -60,16 +61,18 @@ Plug 'pangloss/vim-javascript',             { 'for': 'javascript' }
 Plug 'ZeusTheTrueGod/vim-format-js',        { 'for': 'javascript' }
 " CoffeeScript
 Plug 'kchmck/vim-coffee-script',            { 'for': 'coffee' }
-Plug 'mintplant/vim-literate-coffeescript', { 'for': 'litcoffee' }
+"Plug 'mintplant/vim-literate-coffeescript', { 'for': 'litcoffee' }
 " TypeScript
 Plug 'leafgarland/typescript-vim',          { 'for': 'typescript' }
 " CSS / Less
 Plug 'groenewege/vim-less',                 { 'for': [ 'sass', 'less' ] }
 Plug 'ap/vim-css-color',                    { 'for': 'css' }
 " HTML
-Plug 'mattn/emmet-vim',                     { 'for': 'html' }
+Plug 'mattn/emmet-vim',                     { 'for': [ 'html', 'xml', 'xsd' ] }
 " Scala
 Plug 'derekwyatt/vim-scala',                { 'for': 'scala' }
+"Plug 'ensime/ensime-vim',                   { 'for': [ 'scala', 'java' ] }
+
 " Haskell
 Plug 'bitc/vim-hdevtools',                  { 'for': 'haskell' }
 "Plug 'eagletmt/neco-ghc',                   { 'for': 'haskell' }
@@ -79,6 +82,8 @@ Plug 'bitc/vim-hdevtools',                  { 'for': 'haskell' }
 Plug 'nelstrom/vim-markdown-folding',       { 'for': 'markdown' }
 Plug 'tpope/vim-markdown',                  { 'for': 'markdown' }
 
+Plug 'LnL7/vim-nix',                        { 'for': 'nix' }
+
 " gtags support
 Plug 'vim-scripts/gtags.vim',               { 'on': [ 'Gtags' ] }
 
@@ -86,10 +91,20 @@ Plug 'vim-scripts/gtags.vim',               { 'on': [ 'Gtags' ] }
 Plug 'dzeban/vim-log-syntax',               { 'for': 'log' }
 
 " linters
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
+Plug 'neomake/neomake'
 
 " color schemes
-Plug 'icetan/vim-colors-solarized'
+Plug 'icetan/vim-colors-solo'
+"Plug '~/src/vim-colors-solo'
+
+"
+Plug g:vim_home.'/eclim'
+"Plug '~/.vim/eclim'
+" Don't forget to symlink ~/.vim/plugin to neovim home
+
+Plug 'junegunn/goyo.vim'
+",                   { 'on': [ 'Goyo' ] }
 
 "Plug 'MultipleSearch'
 
@@ -104,15 +119,15 @@ if has("gui_running")
 endif
 
 "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-let g:solarized_termtrans=1
+"let g:solarized_termtrans=1
 
-set background=dark
-colorscheme solarized
+"set background=dark
+colorscheme solo
 
-hi SignColumn ctermbg=8
+"hi SignColumn ctermbg=8
 "hi link LineHighlight ErrorMsg
 " Set sign column color to same as line numbers
-hi! link SignColumn LineNr
+"hi! link SignColumn LineNr
 
 " UTF-8
 scriptencoding utf-8
@@ -134,7 +149,7 @@ set list!                             " Show invisibles.
 set showcmd                           " Show partially typed command sequences.
 set laststatus=2                      " Always show status bar.
 set ruler                             " Show line, column and scroll info in status line.
-set textwidth=80                      " Automatically wrap lines when inserting.
+"set textwidth=80                      " Automatically wrap lines when inserting.
 set wrap                              " Wrap lines.
 set linebreak
 set showbreak=↵                       " Line wrap char.
@@ -171,9 +186,17 @@ set mousemodel=extend
 set timeoutlen=1000 ttimeoutlen=0
 " Look for ctags up the dir tree
 set tags=tags;/
+" Change dir to current file path
+"set autochdir
+" Only change dir in insert mode for relative file path completion
+autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
+autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
 
 " Files to ignore
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 
 " Airline config
 "if !exists('g:airline_symbols')
@@ -194,6 +217,8 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 
 "let g:airline#extensions#syntastic#enabled = 0
 
+"autocmd! BufWritePost * Neomake
+
 " Add current work dir to status line
 "function! AirlineInit()
 "  let g:airline_section_c = airline#section#create_left(['%{split(getcwd(), "/")[-1]}', 'file'])
@@ -201,7 +226,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 "autocmd VimEnter * call AirlineInit()
 
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': '16color',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename', 'ctrlpmark'] ],
       \   'right': [ [ 'errors', 'lineinfo' ], ['percent'], [ 'fileformat', 'filetype' ] ]
@@ -245,7 +270,7 @@ function! MyFilename()
         \   ? fname
         \   : '[No Name]'
         \ ) .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
+        \ ("" != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 function! MyFilePath()
@@ -322,12 +347,18 @@ endfunction
 "endfunction
 
 
+if exists('+colorcolumn')
+  "" Margin line same value as textwidth
+  "set colorcolumn=+0
+  "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
+  set colorcolumn=80
+
+  "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+  "exec 'match ErrorMsg /\\%>' . &colorcolumn . 'v.\\+/'
+endif
+
 " v7.3 specific stuff
 if v:version >= 703
-  " Margin line same value as textwidth
-  set colorcolumn=+0
-  "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-
   " Persistent undo
   set undofile
   set undodir=~/.vimundo " Need to create this directory for undofile to work
@@ -450,19 +481,25 @@ au FileType c          setlocal omnifunc=ccomplete#Complete
 
 " Haskell setup
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
-au FileType haskell setlocal formatprg=pointfree\ \"$(cat)\"
-au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <F2> :HdevtoolsInfo<CR>
-au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
+                 \| setlocal formatprg=pointfree\ \"$(cat)\"
+                 \| nnoremap <buffer> <silent> <leader>t :HdevtoolsType<CR>
+                 \| nnoremap <buffer> <silent> <leader>T :HdevtoolsInfo<CR>
+                 \| nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
 
-" Java setup
-"au FileType java setlocal omnifunc=javacomplete#Complete
+" Eclim for Java
 let g:EclimCompletionMethod = 'omnifunc'
-" Remap lookup symbol
 au FileType java nnoremap [g :JavaSearch<CR>
-au FileType java nnoremap ]g :JavaCallHierarchy<CR>
-" 4 space indentation
-au FileType java setlocal sw=4 sts=4 ts=4
+              \| nnoremap ]g :JavaCallHierarchy<CR>
+              \| setlocal sw=4 sts=4 ts=4
+              \| setlocal colorcolumn=100
+
+" Ensime (Scala / Java)
+"au FileType scala,java nnoremap <buffer> <silent> [g :EnDeclaration<CR>
+"                    \| nnoremap <buffer> <silent> ]g :EnSearch <C-R><C-W><CR>
+"                    \| nnoremap <buffer> <silent> <leader>t :EnType<CR>
+"                    \| nnoremap <buffer> <silent> <leader>T :EnTypeCheck<CR>
+" Eclim for Scala
+au FileType scala nnoremap <buffer> <silent> [g :ScalaSearch<CR>
 
 " TypeScript
 " 4 space indentation
@@ -472,7 +509,7 @@ let g:syntastic_typescript_tsc_args='--target ES5'
 
 " HTML
 " 4 space indentation
-au FileType html setlocal sw=4 sts=4 ts=4
+au FileType html,xml,xsd setlocal sw=4 sts=4 ts=4
 " Use tidy5 to get HTML5 linting
 "let g:syntastic_html_tidy_exec = 'tidy5'
 " Ignore errors and warnings for custom tags and attributes
@@ -481,6 +518,9 @@ let g:syntastic_html_tidy_ignore_errors =
   \,"> is not recognized!"
   \,"discarding unexpected <"
   \]
+
+" JavaScript
+let g:javascript_plugin_flow = 1
 
 " Syntastic
 
@@ -493,6 +533,7 @@ let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
+let g:syntastic_auto_jump = 0
 
 " Force a redraw
 nnoremap <leader>r :redraw!<CR>
@@ -538,6 +579,7 @@ nnoremap <leader>m :Silent call Gfm2Html()<CR>
 
 " Open file or URL under cursor externally
 nnoremap <leader>b :silent call system('open ' . shellescape(expand('<cfile>')))<CR>
+nnoremap <leader>z :Goyo<CR>
 
 " Fugitive and diff key mappings
 nnoremap <leader>gd :NoIgnore Gdiff<CR>

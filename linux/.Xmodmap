@@ -1,0 +1,29 @@
+! remap Caps-Lock to Esc
+clear Lock
+keycode 0x42 = Escape
+
+! free up right-Alt for remapping
+!remove mod1 = Alt_R
+!
+!! Right-Alt remapped to Super
+!clear mod4
+!keycode 108 = Super_R
+!add mod4 = Super_R
+
+! fix problem with key right of left shift on Toshiba Click Mini
+keycode 94 = grave asciitilde grave asciitilde
+
+!keycode 160 = XF86AudioMute
+!keycode 176 = XF86AudioRaiseVolume
+!keycode 174 = XF86AudioLowerVolume
+!
+keycode 144 = XF86AudioPrev
+keycode 162 = XF86AudioPlay
+keycode 153 = XF86AudioNext
+!
+!keycode 101 = XF86MonBrightnessDown
+!keycode 212 = XF86MonBrightnessUp
+!
+!keycode 204 = XF86Eject
+
+!pointer = 1 2 3 5 4 6 7 8 9 10 11 12

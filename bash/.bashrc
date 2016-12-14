@@ -23,7 +23,7 @@ function _git_prompt() {
   fi
 }
 
-if [ $(which brew) ]; then
+if which brew &>/dev/null; then
 # Brew specific stuff
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
@@ -38,3 +38,4 @@ fi
 PS1="$PS1\[\e[0;37m\]\$\[\e[0m\] "
 
 . ~/.bashrc.local
+if [ -e /Users/icetan/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/icetan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

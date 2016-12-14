@@ -5,7 +5,7 @@ objects = bash bash-alias git vim tmux
 ifdef link
 cp_cmd = -ln -s
 else
-cp_cmd = -cp
+cp_cmd = -cp -r
 endif
 
 # TODO: backup existing config files instead of overwriting or using

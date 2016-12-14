@@ -34,34 +34,34 @@ function b64sourcemap() {
   gsed -i'' 's#\(//\# sourceMappingURL=\)\(.*\)$#echo "\1data:application/json;charset=utf-8;base64,`base64 < \2`"#ge' $1
 }
 
-function readlinkf() {
-  ( cd ${1%/*} && pwd -P )
-}
+#function readlinkf() {
+#  ( cd ${1%/*} && pwd -P )
+#}
 
-function notify() {
-  /usr/bin/osascript -e "display notification \"$*\""
-}
-POMO_TIMEOUT_M=1
-POMO_TIMEOUT_S=$(expr 60 "*" $POMO_TIMEOUT_M)
-alias pomo="echo Notification in ${POMO_TIMEOUT_M}m ; sleep $POMO_TIMEOUT_S && notify Take a break!"
+#function notify() {
+#  /usr/bin/osascript -e "display notification \"$*\""
+#}
+#POMO_TIMEOUT_M=1
+#POMO_TIMEOUT_S=$(expr 60 "*" $POMO_TIMEOUT_M)
+#alias pomo="echo Notification in ${POMO_TIMEOUT_M}m ; sleep $POMO_TIMEOUT_S && notify Take a break!"
 
 # .app's in /Applications
-alias chrome='open -a "Google Chrome" --args'
-alias chrome-canary='open -a "Google Chrome Canary" --args'
-alias chrome-cors='open -a "Google Chrome" --args --disable-web-security'
-alias chrome-canary-cors='open -a "Google Chrome Canary" --args --disable-web-security'
+#alias chrome='open -a "Google Chrome" --args'
+#alias chrome-canary='open -a "Google Chrome Canary" --args'
+#alias chrome-cors='open -a "Google Chrome" --args --disable-web-security'
+#alias chrome-canary-cors='open -a "Google Chrome Canary" --args --disable-web-security'
 
 # Open an URL in a specific Google Chrome tab.
 # Usage: chrometab <url> [tab-id]
-function chrome-tab {
-  id=$2
-  if [ $id ]; then
-    chrome-cli list tabs | grep -q ":$id"
-    id=$([ $? == 0 ] && (chrome-cli open "$1" -t $id; echo $id))
-  fi
-  [ ! $id ] && id=$(chrome-cli open "$1" | grep -Eo '\d+')
-  echo $id
-}
+#function chrome-tab {
+#  id=$2
+#  if [ $id ]; then
+#    chrome-cli list tabs | grep -q ":$id"
+#    id=$([ $? == 0 ] && (chrome-cli open "$1" -t $id; echo $id))
+#  fi
+#  [ ! $id ] && id=$(chrome-cli open "$1" | grep -Eo '\d+')
+#  echo $id
+#}
 
 # TODO: Get the correct lib path from cabal config.
 # ghc-pkg-reset
@@ -90,5 +90,15 @@ function hdoc {
 }
 
 alias docker-env='eval $(docker-machine env default)'
+docker-exec() {
+  local name=$1; shift
+  docker exec -i`test -s /dev/stdin || echo t` $(docker ps -q -f name="$name") bash -c "$*"
+}
+
+# Linux / X11 specific
+
+which pbcopy &>/dev/null  || alias pbcopy='xsel -i -b'
+which pbpaste &>/dev/null || alias pbpaste='xsel -o -b'
+which open &>/dev/null    || alias open='xdg-open'
 
 . ~/.alias.local

@@ -1,0 +1,40 @@
+#/bin/bash
+set -e
+
+calc_dpi() {
+  FACTOR=1
+  test $1 = eDP1 && FACTOR=0.7
+  python -c "print(int($2/($3*0.0393700787)*$FACTOR))";
+}
+
+get_mons() {
+  xrandr | sed -n 's/^\(\w\w*\) connected.* \([0-9][0-9]*\)x\([0-9]*\)+.* \([0-9]*\)mm x \([0-9]*\)mm$/\1 \2 \4 \3 \5 /p' | tail -n1
+}
+get_con() { xrandr | sed -n 's/^\(\w\w*\) connected .*$/\1/p'; }
+get_all() { xrandr | sed -n 's/^\(\w\w*\) \(connected\|disconnected\) .*$/\1/p'; }
+
+mon_conf() {
+  for mon in `get_con | grep -v ^$1`; do
+    echo -n "--output $mon --off "
+  done
+  echo "--output $1 --auto --dpi $(calc_dpi $1 $2 $3)"
+}
+xres_conf() { echo "Xft.dpi: $(calc_dpi $1 $2 $3)"; }
+
+gen_conf() {
+  prev_name=$1
+  echo -n "--output $1 --auto --dpi $(calc_dpi $1 $2 $3) "
+  shift 5
+
+  for mon in `get_all | grep -v ^$prev_name`; do
+    echo -n "--output $mon --auto " #--left-of $prev_name
+    prev_name=$1
+  done
+}
+
+mon_data="`get_mons`"
+
+set -x
+
+xrandr $(gen_conf $mon_data)
+xrdb -merge <(xres_conf $mon_data)
