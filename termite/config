@@ -9,9 +9,11 @@ font = Monospace 9
 # special
 foreground      = #839496
 foreground_bold = #93a1a1
-background      = #002b36
-#background      = #FDF6E3 # Light theme
-#
+# Dark theme
+#background      = #002b36
+# Light theme
+background      = #FDF6E3
+
 #cursor            = #93a1a1
 #cursor_foreground = #002b36
 

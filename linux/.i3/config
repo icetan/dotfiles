@@ -259,7 +259,8 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Lock screen
-bindsym $mod+9 exec --no-startup-id i3lock -i ~/Dropbox/Photos/desktop-mountains.png
+#bindsym $mod+9 exec --no-startup-id [ -f ~/.i3lock-bg.png ] || (convert `sed -n 's/^file=\(.*\)$/\1/p' ~/.config/nitrogen/bg-saved.cfg` ~/.i3lock-bg.png); i3lock -i ~/.i3lock-bg.png
+bindsym $mod+9 exec --no-startup-id i3lock -i ~/.i3lock-bg.png
 
 # Media keys
 #bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -10
@@ -299,6 +300,7 @@ exec --no-startup-id pamac-tray
 # exec --no-startup-id blueman
 # exec_always --no-startup-id sbxkb
 #exec --no-startup-id compton -b
+exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 #exec --no-startup-id start_conky_grey
 # exec --no-startup-id start_conky_green
 exec --no-startup-id dropbox

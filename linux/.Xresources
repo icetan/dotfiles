@@ -78,12 +78,12 @@
 !*font: xft:DejaVu Sans Mono:size=8
 
 *faceName: DejaVu Sans Mono
-*faceSize: 8
-*font: xft:DejaVu Sans Mono:size=8,xft:Symbola
+*faceSize: 9
+*font: xft:DejaVu Sans Mono:size=9,xft:Symbola
 
 rofi.faceName: DejaVu Sans Mono
 rofi.faceSize: 100
-rofi.font: DejaVu Sans Mono 8
+rofi.font: DejaVu Sans Mono 9
 
 URxvt.letterSpace: -1
 URxvt.scrollBar: false
@@ -113,7 +113,7 @@ URxvt*iso14755: False
 
 ! Screen resolution
 
-Xft.dpi: 144
+Xft.dpi: 158
 Xft.antialias: 1
 Xft.hinting: 1
 Xft.autohint: 0
