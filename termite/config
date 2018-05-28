@@ -6,46 +6,102 @@ font = Monospace 9
 
 [colors]
 
-# special
-foreground      = #839496
-foreground_bold = #93a1a1
-# Dark theme
-#background      = #002b36
-# Light theme
-background      = #FDF6E3
+#cursor            = #93A1A1
+#cursor_foreground = #002B36
 
-#cursor            = #93a1a1
-#cursor_foreground = #002b36
+###### SOLARIZED ref.
+#base03:    #002B36;
+#base02:    #073642;
+#base01:    #586E75;
+#base00:    #657B83;
+#base0:     #839496;
+#base1:     #93A1A1;
+#base2:     #EEE8D5;
+#base3:     #FDF6E3;
+#yellow:    #B58900;
+#orange:    #CB4B16;
+#red:       #DC322F;
+#magenta:   #D33682;
+#violet:    #6C71C4;
+#blue:      #268BD2;
+#cyan:      #2AA198;
+#green:     #859900;
+
+
+# Light theme
+## special
+background      = #FDF6E3
+foreground      = #657B83
+foreground_bold = #586E75
 
 # black
 color8  = #004557
-color0  = #073642
+color0  = #EEE8D5
 
 # red
-color9  = #cb4b16
-color1  = #dc322f
+color9  = #CB4B16
+color1  = #DC322F
 
 # green
-color10  = #586e75
-color2 = #859900
+color10 = #93A1A1
+color2  = #859900
 
 # yellow
-color11  = #657b83
-color3 = #b58900
+color11 = #839496
+color3  = #B58900
 
 # blue
-color12  = #839496
-color4 = #268bd2
+color12 = #657B83
+color4  = #268BD2
 
 # magenta
-color13  = #6c71c4
-color5 = #d33682
+color13 = #6C71C4
+color5  = #D33682
 
 # cyan
-color14  = #93a1a1
-color6 = #2aa198
+color14 = #586E75
+color6  = #2AA198
 
 # white
-color15  = #fdf6e3
-color7 = #eee8d5
+color15 = #002B36
+color7  = #073642
+
+
+## Dark theme
+## special
+#background      = #002B36
+#foreground      = #839496
+#foreground_bold = #93A1A1
+#
+## black
+#color8  = #004557
+#color0  = #073642
+#
+## red
+#color9  = #CB4B16
+#color1  = #DC322F
+#
+## green
+#color10 = #586E75
+#color2  = #859900
+#
+## yellow
+#color11 = #657B83
+#color3  = #B58900
+#
+## blue
+#color12 = #839496
+#color4  = #268BD2
+#
+## magenta
+#color13 = #6C71C4
+#color5  = #D33682
+#
+## cyan
+#color14 = #93A1A1
+#color6  = #2AA198
+#
+## white
+#color15 = #FDF6E3
+#color7  = #EEE8D5
 
