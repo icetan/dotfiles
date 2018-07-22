@@ -275,7 +275,7 @@ bindsym XF86AudioRaiseVolume  exec --no-startup-id amixer -q set Master 3%+ unmu
 bar {
     mode hide
     position top
-    status_command i3status
+    status_command i3status-rs ~/.config/i3/status.toml
     # wheel_up_cmd nop
     # wheel_down_cmd nop
     font pango:Droid Sans,Icons 9
