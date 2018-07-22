@@ -1,0 +1,14 @@
+AddKeysToAgent yes
+
+Host *
+Compression yes
+AddressFamily inet
+
+Host gito-pulsar
+User gito
+
+Host pulsar
+ForwardX11 yes
+RemoteForward /run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent
+RemoteForward /run/user/1000/gnupg/S.gpg-agent.ssh /run/user/1000/gnupg/S.gpg-agent.ssh
+ExitOnForwardFailure no
