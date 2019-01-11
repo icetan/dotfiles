@@ -1,0 +1,4 @@
+#!/bin/sh
+set -x
+setxkbmap -layout us -variant altgr-intl -option '' -option nodeadkeys -option caps:super
+xmodmap /home/icetan/.Xmodmap

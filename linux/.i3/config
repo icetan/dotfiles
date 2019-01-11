@@ -38,9 +38,24 @@ bindsym $mod+p exec rofi-pass
 
 ################################################################################################
 
-bindsym Print exec "scrot -e 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
-bindsym $mod+Print --release exec "scrot -ue 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
-bindsym $mod+Shift+Print --release exec "notify-send 'selection will be saved to ~/Screenshots'; scrot -se 'mv $f ~/Screenshots'"
+# Screen brightness controls
+#bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+#bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+# Start Applications
+bindsym $mod+Ctrl+b exec i3-sensible-terminal -e 'bmenu'
+bindsym $mod+F2 exec palemoon
+bindsym $mod+F3 exec pcmanfm
+# bindsym $mod+F3 exec ranger
+bindsym $mod+Shift+F3 exec gksu pcmanfm
+bindsym $mod+F5 exec i3-sensible-terminal -e 'mocp'
+#bindsym $mod+t exec --no-startup-id pkill compton
+#bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym Print       exec "maim -f png ~/Screenshots/$(date +%Y%m%d-%H%M%S).png; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+bindsym Shift+Print exec "notify-send 'selection will be saved to ~/Screenshots'; maim -s -f png ~/Screenshots/$(date +%Y%m%d-%H%M%S).png;"
+#bindsym $mod+Print --release exec "scrot -ue 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+#bindsym $mod+Shift+Print --release exec "notify-send 'selection will be saved to ~/Screenshots'; scrot -se 'mv $f ~/Screenshots'"
 #bindsym $mod+Shift+h exec qpdfview i3_help.pdf
 bindsym $mod+Ctrl+x exec xkill
 
@@ -77,7 +92,7 @@ bindsym $mod+Shift+Right move right
 #bindsym $mod+h split h;exec notify-send 'tile horizontally'
 
 # split in vertical orientation
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+#bindsym $mod+v split v;exec notify-send 'tile vertically'
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -204,8 +219,8 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Lock screen
 #dm-tool lock
-set $lock ~/.local/bin/i3lock-nitrogen
-bindsym $mod+9 exec $lock
+#set $lock ~/.local/bin/i3lock-nitrogen
+#bindsym $mod+9 exec $lock
 
 # Set shut down, restart and lock
 set $mode_system "(r)eboot, (s)hutdown"
@@ -258,6 +273,10 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
+# Lock screen
+set $lock ~/./local/bin/lock.sh
+bindsym $mod+9 exec --no-startup-id $lock
+
 # Media keys
 bindsym XF86MonBrightnessDown exec brightnessctl set  10%-
 bindsym XF86MonBrightnessUp   exec brightnessctl set +10%
@@ -292,18 +311,22 @@ bar {
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# Replace with xorg config file and model chromebook
-#exec_always --no-startup-id setxkbmap -layout us,se -option "grp:ctrl_alt_toggle" -model chromebook
-exec_always --no-startup-id xmodmap ~/.Xmodmap
-
-# exec_always --no-startup-id sbxkb
-
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id xautolock -time 10 -locker $lock
-exec --no-startup-id dunst
+#exec --no-startup-id feh --bg-center ~/Dropbox/Photos/desktop-mountains.png
 exec --no-startup-id nm-applet
-exec --no-startup-id volumeicon
-# exec --no-startup-id blueman
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id redshift-gtk
+#exec --no-startup-id volumeicon
+#exec --no-startup-id clipit
+#exec --no-startup-id blueman
+#exec_always --no-startup-id sbxkb
+#exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+#exec --no-startup-id dropbox
+exec --no-startup-id xss-lock -- /home/icetan/.local/bin/i3lock-nitrogen
+exec --no-startup-id xautolock -time 10 -locker $lock
+
+exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option '' -option nodeadkeys -option caps:super
+exec --no-startup-id xmodmap ~/.Xmodmap
 
 # Theme colors
 client.focused #93A1A1 #93A1A1 #002B36 #FFFFFF

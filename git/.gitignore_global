@@ -25,3 +25,5 @@ workbench.xmi
 result*
 
 .lvimrc
+.idea/
+*.iml

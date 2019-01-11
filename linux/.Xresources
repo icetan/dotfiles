@@ -83,7 +83,7 @@
 
 rofi.faceName: DejaVu Sans Mono
 rofi.faceSize: 100
-rofi.font: DejaVu Sans Mono 9
+rofi.font: DejaVu Sans Mono 14
 
 URxvt.letterSpace: -1
 URxvt.scrollBar: false

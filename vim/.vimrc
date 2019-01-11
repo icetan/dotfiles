@@ -64,6 +64,7 @@ Plug 'kchmck/vim-coffee-script',            { 'for': 'coffee' }
 "Plug 'mintplant/vim-literate-coffeescript', { 'for': 'litcoffee' }
 " TypeScript
 Plug 'leafgarland/typescript-vim',          { 'for': 'typescript' }
+Plug 'Quramy/tsuquyomi',                    { 'for': 'typescript' }
 " CSS / Less
 Plug 'groenewege/vim-less',                 { 'for': [ 'sass', 'less' ] }
 Plug 'ap/vim-css-color',                    { 'for': 'css' }
@@ -121,7 +122,7 @@ endif
 "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 "let g:solarized_termtrans=1
 
-"set background=dark
+set background=dark
 colorscheme solo
 
 "hi SignColumn ctermbg=8
@@ -396,7 +397,7 @@ map <C-W>d :bn\|bd #<CR>
 map <C-W>n :vert new<CR>
 
 " Ctrl-h same as split horizontally
-noremap <C-W>h <C-W>s
+"noremap <C-W>h <C-W>s
 " Ctrl-x same as close window
 map <C-W>x <C-W>c
 

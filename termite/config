@@ -29,7 +29,7 @@ font = Monospace 9
 
 
 # Light theme
-## special
+# special
 background      = #FDF6E3
 foreground      = #657B83
 foreground_bold = #586E75
@@ -104,4 +104,3 @@ color7  = #073642
 ## white
 #color15 = #FDF6E3
 #color7  = #EEE8D5
-
