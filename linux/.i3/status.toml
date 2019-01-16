@@ -13,8 +13,8 @@ alias = "/"
 info_type = "available"
 unit = "GB"
 interval = 20
-warning = 20.0
-alert = 10.0
+warning = 10.0
+alert = 5.0
 
 [[block]]
 block = "memory"
@@ -33,6 +33,9 @@ format = "{1m}"
 
 [[block]]
 block = "sound"
+
+[[block]]
+block = "battery"
 
 [[block]]
 block = "time"

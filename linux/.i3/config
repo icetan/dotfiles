@@ -38,9 +38,9 @@ bindsym $mod+p exec rofi-pass
 
 ################################################################################################
 
-bindsym Print exec "scrot -e 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
-bindsym $mod+Print --release exec "scrot -ue 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
-bindsym $mod+Shift+Print --release exec "notify-send 'selection will be saved to ~/Screenshots'; scrot -se 'mv $f ~/Screenshots'"
+bindsym F4 exec "scrot -e 'mv $f ~/Screenshots/'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+bindsym $mod+F4 --release exec "scrot -ue 'mv $f ~/Screenshots/'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+bindsym $mod+Shift+F4 --release exec "notify-send 'selection will be saved to ~/Screenshots/'; scrot -se 'mv $f ~/Screenshots'"
 #bindsym $mod+Shift+h exec qpdfview i3_help.pdf
 bindsym $mod+Ctrl+x exec xkill
 
@@ -208,7 +208,7 @@ set $lock ~/.local/bin/i3lock-nitrogen
 bindsym $mod+9 exec $lock
 
 # Set shut down, restart and lock
-set $mode_system "(r)eboot, (s)hutdown"
+set $mode_system "(r)eboot, (s)hutdown, (t)erminal"
 mode $mode_system {
     bindsym XF86PowerOff exec --no-startup-id $lock, mode "default"
 #    bindsym s exec --no-startup-id i3exit suspend, mode "default"
@@ -217,6 +217,7 @@ mode $mode_system {
 #    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
     bindsym r exec --no-startup-id reboot, mode "default"
     bindsym s exec --no-startup-id shutdown, mode "default"
+    bindsym t exec i3-sensible-terminal, mode "default"
 
     # exit system mode: "Enter" or "Escape"
     bindsym Return mode "default"
@@ -259,8 +260,8 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Media keys
-bindsym XF86MonBrightnessDown exec brightnessctl set  10%-
-bindsym XF86MonBrightnessUp   exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set  10%-
+bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set +10%
 bindsym XF86AudioMute         exec --no-startup-id amixer -q set Master mute
 bindsym XF86AudioLowerVolume  exec --no-startup-id amixer -q set Master 3%- unmute
 bindsym XF86AudioRaiseVolume  exec --no-startup-id amixer -q set Master 3%+ unmute
@@ -275,10 +276,12 @@ bindsym XF86AudioRaiseVolume  exec --no-startup-id amixer -q set Master 3%+ unmu
 bar {
     mode hide
     position top
+    #status_command i3status
     status_command i3status-rs ~/.config/i3/status.toml
     # wheel_up_cmd nop
     # wheel_down_cmd nop
-    font pango:Droid Sans,Icons 9
+    font pango:Droid Sans, Icons 9
+    #font pango:DejaVu Sans Mono, FontAwesome 9
     colors {
         separator #93A1A1
         background #004557
@@ -293,7 +296,7 @@ bar {
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # Replace with xorg config file and model chromebook
-#exec_always --no-startup-id setxkbmap -layout us,se -option "grp:ctrl_alt_toggle" -model chromebook
+#exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option '' -option caps:super -option nodeadkeys -model chromebook
 exec_always --no-startup-id xmodmap ~/.Xmodmap
 
 # exec_always --no-startup-id sbxkb
@@ -302,7 +305,8 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id xautolock -time 10 -locker $lock
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
-exec --no-startup-id volumeicon
+# exec --no-startup-id volumeicon
+exec --no-startup-id fluxgui
 # exec --no-startup-id blueman
 
 # Theme colors
