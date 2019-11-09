@@ -1,0 +1,1 @@
+ACTION=="remove", SUBSYSTEMS=="usb", ATTRS{idVendor}=="1050", RUN+="/home/icetan/.local/bin/lock.sh"

@@ -83,9 +83,10 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 #gpgconf --launch gpg-agent
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-if [ -e /home/icetan/.nix-profile/etc/profile.d/nix.sh ]; then . /home/icetan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-NIX_PATH="ssh-config-file=$HOME/.ssh/config:$NIX_PATH"
-NIX_PATH="ssh-auth-sock=$SSH_AUTH_SOCK:$NIX_PATH"
+# Nix stuff
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
+export NIX_PATH="ssh-config-file=$HOME/.ssh/config:$NIX_PATH"
+export NIX_PATH="ssh-auth-sock=$SSH_AUTH_SOCK:$NIX_PATH"
+export ASPELL_CONF="data-dir $HOME/.nix-profile/lib/aspell"
 
 . $HOME/.local/profile

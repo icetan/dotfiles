@@ -3,7 +3,7 @@ set -e
 
 calc_dpi() {
   FACTOR=1
-  test $1 = eDP1 && FACTOR=0.7
+  test $1 = eDP1 && FACTOR=0.66
   python -c "print(int($2/($3*0.0393700787)*$FACTOR))";
 }
 

@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEMS=="input", RUN+="/home/icetan/.local/bin/upkeys", OWNER="icetan"

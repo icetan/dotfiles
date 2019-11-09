@@ -1,11 +1,11 @@
 test -f ~/.profile && . ~/.profile
 
-if [ -f /etc/bash_completion ]; then
-  . /etc/bash_completion
-elif [ -f /usr/share/bash_completion ]; then
-  . /usr/share/bash_completion
-elif [ -f ~/.nix-profile/share/bash-completion/bash_completion ]; then
-  . ~/.nix-profile/share/bash-completion/bash_completion
+if [ -e /usr/share/bash_completion/bash_completion ]; then
+  . /usr/share/bash_completion/bash_completion
+fi
+
+if [ -e $HOME/.nix-profile/etc/profile.d/bash_completion.sh ]; then
+  . $HOME/.nix-profile/etc/profile.d/bash_completion.sh
 fi
 
 xhost +local:root > /dev/null 2>&1
